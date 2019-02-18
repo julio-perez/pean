@@ -18,11 +18,9 @@ exports.create = function(req, res) {
     title: req.body.title,
     content: req.body.content,
     userId: req.user.id
-  })
-  .then(function(newArticle) {
+  }).then(function(newArticle) {
     return res.json(newArticle);
-  })
-  .catch(function(err) {
+  }).catch(function(err) {
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
@@ -76,11 +74,10 @@ exports.list = function(req, res) {
     include: [
       db.User
     ]
-  })
-  .then(function(articles) {
+  }).then(function(articles) {
     return res.json(articles);
-  })
-  .catch(function(err) {
+  }).catch(function(err) {
+    console.log(err);
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
@@ -102,11 +99,9 @@ exports.read = function(req, res) {
     include: [
       db.User
     ]
-  })
-  .then(function(article) {
+  }).then(function(article) {
     return res.json(article);
-  })
-  .catch(function(err) {
+  }).catch(function(err) {
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
@@ -129,24 +124,20 @@ exports.update = function(req, res) {
       include: [
         db.User
       ]
-    })
-    .then(function(article) {
+    }).then(function(article) {
       article.updateAttributes({
         title: req.body.title,
         content: req.body.content
-      })
-      .then(function() {
+      }).then(function() {
         return res.json(article);
-      })
-      .catch(function(err) {
+      }).catch(function(err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       });
 
       return null;
-    })
-    .catch(function(err) {
+    }).catch(function(err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

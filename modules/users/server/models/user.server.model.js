@@ -117,95 +117,6 @@ module.exports = function(sequelize, DataTypes) {
     resetPasswordExpires: {
       type: DataTypes.DATE
     }
-  }, {
-    classMethods: {
-      /**
-       * Associate
-       * @param  {[type]} models [description]
-       * @return {[type]}        [description]
-       */
-      associate: function(models) {
-        User.belongsToMany(models.Role, {
-          through: 'UserRole'
-        });
-      },
-      /**
-       * Find unique username
-       * @param  {[type]}   username [description]
-       * @param  {[type]}   suffix   [description]
-       * @param  {Function} callback [description]
-       * @return {[type]}            [description]
-       */
-      findUniqueUsername: function(username, suffix, callback) {
-        var _this = this;
-        var possibleUsername = username.toLowerCase() + (suffix || '');
-
-        _this
-          .findOne({
-            where: {
-              username: possibleUsername
-            }
-          })
-          .then(function(user) {
-            if (!user) {
-              callback(possibleUsername);
-            } else {
-              return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-            }
-
-            return null;
-          })
-          .catch(function(err) {
-            console.log(err);
-            callback(null);
-          });
-      },
-      /**
-       * Generate random passphrase
-       * @return {[type]} [description]
-       */
-      generateRandomPassphrase: function() {
-        return new Promise(function(resolve, reject) {
-          var password = '';
-          var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
-
-          // iterate until the we have a valid passphrase. 
-          // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
-          while (password.length < 20 || repeatingCharacters.test(password)) {
-            // build the random password
-            password = generatePassword.generate({
-              length: Math.floor(Math.random() * (20)) + 20, // randomize length between 20 and 40 characters
-              numbers: true,
-              symbols: false,
-              uppercase: true,
-              excludeSimilarCharacters: true,
-            });
-
-            // check if we need to remove any repeating characters.
-            password = password.replace(repeatingCharacters, '');
-          }
-
-          // Send the rejection back if the passphrase fails to pass the strength test
-          if (owasp.test(password).errors.length) {
-            reject(new Error('An unexpected problem occured while generating the random passphrase'));
-          } else {
-            // resolve with the validated passphrase
-            resolve(password);
-          }
-        });
-      }
-    },
-    instanceMethods: {
-      /**
-       * Authenticate
-       * @param  {[type]} user     [description]
-       * @param  {[type]} password [description]
-       * @return {[type]}          [description]
-       */
-      authenticate: function(user, password) {
-        return user.dataValues.password === hashPassword(user, password);
-      }
-    }
   });
 
   /**
@@ -240,5 +151,91 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  return User;
+   /**
+   * Associate
+   * @param  {[type]} models [description]
+   * @return {[type]}        [description]
+   */
+    User.associate = function(models) {
+      User.belongsToMany(models.Role, {
+        through: 'UserRole'
+      });
+    };
+    /**
+     * Find unique username
+     * @param  {[type]}   username [description]
+     * @param  {[type]}   suffix   [description]
+     * @param  {Function} callback [description]
+     * @return {[type]}            [description]
+     */
+    User.findUniqueUsername = function(username, suffix, callback) {
+      var _this = this;
+      var possibleUsername = username.toLowerCase() + (suffix || '');
+
+      _this
+      .findOne({
+        where: {
+          username: possibleUsername
+        }
+      })
+      .then(function(user) {
+        if (!user) {
+          callback(possibleUsername);
+        } else {
+          return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
+        }
+
+        return null;
+      })
+      .catch(function(err) {
+        console.log(err);
+        callback(null);
+      });
+    };
+    /**
+     * Generate random passphrase
+     * @return {[type]} [description]
+     */
+    User.generateRandomPassphrase = function() {
+      return new Promise(function(resolve, reject) {
+        var password = '';
+        var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
+
+        // iterate until the we have a valid passphrase.
+        // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
+        while (password.length < 20 || repeatingCharacters.test(password)) {
+          // build the random password
+          password = generatePassword.generate({
+            length: Math.floor(Math.random() * (20)) + 20, // randomize length between 20 and 40 characters
+            numbers: true,
+            symbols: false,
+            uppercase: true,
+            excludeSimilarCharacters: true,
+          });
+
+          // check if we need to remove any repeating characters.
+          password = password.replace(repeatingCharacters, '');
+        }
+
+        // Send the rejection back if the passphrase fails to pass the strength test
+        if (owasp.test(password).errors.length) {
+          reject(new Error('An unexpected problem occured while generating the random passphrase'));
+        } else {
+          // resolve with the validated passphrase
+          resolve(password);
+        }
+      });
+    };
+
+    /**
+     * Authenticate
+     * @param  {[type]} user     [description]
+     * @param  {[type]} password [description]
+     * @return {[type]}          [description]
+     */
+    User.prototype.authenticate = function(user, password) {
+      return user.dataValues.password === hashPassword(user, password);
+    };
+
+    return User;
 };

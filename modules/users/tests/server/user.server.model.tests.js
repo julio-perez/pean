@@ -5,6 +5,8 @@ var _ = require('lodash'),
   db = require(path.resolve('./config/lib/sequelize')),
   should = require('should');
 
+var Op = db.Sequelize.Op;
+
 /**
  * Globals
  */
@@ -19,40 +21,40 @@ describe('User "model" Tests:', function() {
 
     user1 =
       db.User
-      .build({
-        firstName: 'User',
-        lastName: 'One',
-        displayName: 'User One',
-        email: 'one@test.com',
-        username: 'userone',
-        password: 'M3@n.jsI$Aw3$0m3',
-        provider: 'local'
-      });
+        .build({
+          firstName: 'User',
+          lastName: 'One',
+          displayName: 'User One',
+          email: 'one@test.com',
+          username: 'userone',
+          password: 'M3@n.jsI$Aw3$0m3',
+          provider: 'local'
+        });
 
     // user2 is a clone of user1
     user2 =
       db.User
-      .build({
-        firstName: 'User',
-        lastName: 'One',
-        displayName: 'User One',
-        email: 'one@test.com',
-        username: 'userone',
-        password: 'M3@n.jsI$Aw3$0m3',
-        provider: 'local'
-      });
+        .build({
+          firstName: 'User',
+          lastName: 'One',
+          displayName: 'User One',
+          email: 'one@test.com',
+          username: 'userone',
+          password: 'M3@n.jsI$Aw3$0m3',
+          provider: 'local'
+        });
 
     user3 =
       db.User
-      .build({
-        firstName: 'User',
-        lastName: 'Three',
-        displayName: 'User Three',
-        email: 'three@test.com',
-        username: 'userthree',
-        password: 'foobar',
-        provider: 'local'
-      });
+        .build({
+          firstName: 'User',
+          lastName: 'Three',
+          displayName: 'User Three',
+          email: 'three@test.com',
+          username: 'userthree',
+          password: 'foobar',
+          provider: 'local'
+        });
 
     // Get roles
     db.Role
@@ -197,19 +199,32 @@ describe('User "model" Tests:', function() {
 
     db.User
       .find({
-        '$or': [{
-          firstName: query
+        [Op.or]: [{
+          firstName: {
+            [Op.like]: query
+          }
         }, {
-          lastName: query
+          lastName: {
+            [Op.like]: query
+          }
         }, {
-          displayName: query
+          displayName: {
+            [Op.like]: query
+          }
         }, {
-          username: query
+          username: {
+            [Op.like]: query
+          }
         }, {
-          email: query
+          email: {
+            [Op.like]: query
+          }
         }, {
-          roles: query
+          roles: {
+            [Op.like]: query
+          }
         }],
+        distinct: true,
         'limit': limit,
         'offset': offset,
         'order': [

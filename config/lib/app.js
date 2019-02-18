@@ -17,30 +17,29 @@ module.exports.init = function init(callback) {
   if (config.db.sync.force) {
     console.log(chalk.bold.red('Warning:\tDB_FORCE is true'));  
   }
-  
+
   sequelize.sequelize
-  .sync({
-    force: config.db.sync.force
-  })
-  .then(function (db) {
-    var app = express.init(db);
+    .sync({
+      force: config.db.sync.force
+    })
+    .then(function (db) {
+      var app = express.init(db);
 
-    // Seed
-    if (config.db.sync.force) {  
-      seed.setup();
-    }
+      // Seed
+      if (config.db.sync.force) {
+        seed.setup();
+      }
     
-    if (config.seed.init) {
-      console.log(chalk.bold.red('Warning:\tDB_SEED is true'));
-      seed.start();
-    } 
+      if (config.seed.init) {
+        console.log(chalk.bold.red('Warning:\tDB_SEED is true'));
+        seed.start();
+      }
     
-    if (callback) {
-      callback(app, db, config);
-    }
-
-    return null;
-  });
+      if (callback) {
+        callback(app, db, config);
+      }
+      return null;
+    });
 };
 
 // Start

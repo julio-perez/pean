@@ -78,7 +78,7 @@ module.exports = function (grunt) {
       dev: {
         script: 'server.js',
         options: {
-          nodeArgs: ['--debug'],
+          nodeArgs: ['--inspect'],
           ext: 'js,html',
           watch: _.union(defaultAssets.server.gruntConfig, defaultAssets.server.views, defaultAssets.server.allJS, defaultAssets.server.config)
         }
@@ -217,7 +217,7 @@ module.exports = function (grunt) {
     },
     copy: {
       localConfig: {
-        src: 'config/env/local.example.js',
+        src: 'config/env/local-development.js',
         dest: 'config/env/local-development.js',
         filter: function () {
           return !fs.existsSync('config/env/local-development.js');

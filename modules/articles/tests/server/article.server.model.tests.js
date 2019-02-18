@@ -22,16 +22,17 @@ describe('Article "model" Tests:', function () {
   before(function(done) {
     user =
       db.User
-      .build({
-        firstName: 'Full',
-        lastName: 'Name',
-        displayName: 'Full Name',
-        email: 'test@test.com',
-        username: 'username',
-        password: 'M3@n.jsI$Aw3$0m3',
-        provider: 'local'
-      });
-      // Get roles
+        .build({
+          firstName: 'Full',
+          lastName: 'Name',
+          displayName: 'Full Name',
+          email: 'test@test.com',
+          username: 'username',
+          password: 'M3@n.jsI$Aw3$0m3',
+          provider: 'local'
+        });
+
+    // Get roles
     db.Role
       .findAll ()
       .then(function(roles) {
@@ -49,25 +50,25 @@ describe('Article "model" Tests:', function () {
       });
 
     user.save()
-    .then(function(user){
-      user.addRoles([roleUser, roleAdmin])
-        .then(function(roles) {
-          //console.log(user.dataValues.id);
-          article = db.Article
-          .build({
-            title: 'Article Title',
-            content: 'Article Content',
-            userId: user.dataValues.id
+      .then(function(user){
+        user.addRoles([roleUser, roleAdmin])
+          .then(function(roles) {
+            //console.log(user.dataValues.id);
+            article = db.Article
+              .build({
+                title: 'Article Title',
+                content: 'Article Content',
+                userId: user.dataValues.id
+              });
+            done();
+          })
+          .catch(function(err) {
+            return done(err);
           });
-          done();
-        })
-        .catch(function(err) {
-          return done(err);
-        });
-    })
-    .catch(function(err) {
-      return done(err);
-    });
+      })
+      .catch(function(err) {
+        return done(err);
+      });
   });
   
   it('should be able to save without problems', function(done) {

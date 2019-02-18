@@ -12,7 +12,7 @@ angular.module('users').controller('UsersController', [
   '$scope',
   '$stateParams',
   '$location',
-  '$modal',
+  '$uibModal',
 
   function(Authentication,
     Users,
@@ -23,7 +23,7 @@ angular.module('users').controller('UsersController', [
     $scope,
     $stateParams,
     $location,
-    $modal) {
+    $uibModal) {
     $scope.authentication = Authentication;
 
     // Authentication check
@@ -193,7 +193,7 @@ angular.module('users').controller('UsersController', [
     $scope.openRolesModal = function(index, size) {
       var user = $scope.users[index];
 
-      var modalInstance = $modal.open({
+      var modalInstance = $uibModal.open({
         templateUrl: 'roles-modal.html',
         controller: 'RolesController',
         size: size,

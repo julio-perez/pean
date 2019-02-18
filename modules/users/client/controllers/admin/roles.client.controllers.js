@@ -42,10 +42,10 @@ angular.module('users').controller('RolesController', [
         url: 'api/users/roles',
         method: 'GET'
       })
-      .success(function(data) {
-        console.log(data);
-        $scope.roles = data;
-      });
+        .success(function(data) {
+          console.log(data);
+          $scope.roles = data;
+        });
     };
 
     /**
@@ -93,10 +93,10 @@ angular.module('users').controller('RolesController', [
         method: 'PUT',
         params: params
       })
-      .success(function(data) {
-        $rootScope.$emit('rolesUpdate');
-        user = data;
-      });
+        .success(function(data) {
+          $rootScope.$emit('rolesUpdate');
+          user = data;
+        });
     };
     
     /**

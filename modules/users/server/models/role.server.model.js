@@ -7,15 +7,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       unique: true
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        Role.belongsToMany(models.User, {
-          through: 'UserRole'
-        });
-      }
-    }
   });
+
+  // Class Method
+  Role.associate = function (models) {
+    Role.belongsToMany(models.User, {
+      through: 'UserRole'
+    });
+  };
 
   return Role;
 };

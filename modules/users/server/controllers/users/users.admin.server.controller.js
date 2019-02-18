@@ -11,6 +11,7 @@ var path = require('path'),
 
 chalk.enabled = true;
 
+var Op = db.Sequelize.Op;
 /**
  * Read
  * @param  {[type]} req [description]
@@ -100,28 +101,29 @@ exports.list = function(req, res) {
   db.User
     .findAndCountAll({
       where: {
-        $or: [{
+        [Op.or]: [{
           firstName: {
-            $like: query
+            [Op.like]: query
           }
         }, {
           lastName: {
-            $like: query
+            [Op.like]: query
           }
         }, {
           displayName: {
-            $like: query
+            [Op.like]: query
           }
         }, {
           username: {
-            $like: query
+            [Op.like]: query
           }
         }, {
           email: {
-            $like: query
+            [Op.like]: query
           }
         }]
       },
+      distinct: true,
       include: [{
         all: true
       }],

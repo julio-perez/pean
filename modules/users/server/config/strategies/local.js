@@ -19,8 +19,7 @@ module.exports = function() {
       where: {
         username: username
       }
-    })
-    .then(function(user) {
+    }).then(function(user) {
       if (!user || !user.authenticate(user, password)) {
         done(null, false, {
           message: 'Invalid username or password'
@@ -32,8 +31,7 @@ module.exports = function() {
       done(null, user);
 
       return null;
-    })
-    .catch(function(err) {
+    }).catch(function(err) {
       done(err);
     });
   }));

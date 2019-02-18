@@ -14,11 +14,14 @@ var noReturnUrls = [
   '/authentication/signup'
 ];
 
+var Op = db.Sequelize.Op;
+
 /**
  * Signup
  */
 exports.signup = function(req, res) {
   // For security measurement we remove the roles from the req.body object
+  console.log(req.body);
   delete req.body.roles;
 
   // Init Variables
@@ -46,6 +49,8 @@ exports.signup = function(req, res) {
       resetPasswordExpires: null
     })
     .then(function(user) {
+
+      console.log(user);
       // Find role
       db.Role
         .findOne({
@@ -93,6 +98,7 @@ exports.signup = function(req, res) {
       return null;
     })
     .catch(function(err) {
+      console.log('what!!!');
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -211,7 +217,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
     // Define a search query to find existing user with current provider profile
     var searchQuery = {
-      $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
+      [Op.or]: [mainProviderSearchQuery, additionalProviderSearchQuery]
     };
 
     db.User

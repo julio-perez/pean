@@ -84,7 +84,7 @@ This command does a few things:
 ## Running Your Application
 The first thing you will need to do is supply your PostgreSQL credentials.
 
-To do this, duplicate 'config/env/local.example.js' and rename the file 'config/env/local-development.js' (as instructed in the example file itself). 
+To do this, duplicate 'config/env/local-development.js' and rename the file 'config/env/local-development.js' (as instructed in the example file itself).
 
 If you have not done so already, create a PostgreSQL database (our example uses a database named 'pean_dev'). 
 

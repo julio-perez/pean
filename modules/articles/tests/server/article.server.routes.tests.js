@@ -64,19 +64,19 @@ describe('Article "routes" Tests:', function() {
     // Build new user
     user =
       db.User
-      .build(data);
+        .build(data);
 
     // Save 
     user
       .save()
       .then(function(user) {
         user.addRoles([roleUser, roleAdmin])
-        .then(function(roles){
-          done();
-        })
-        .catch(function(err) {
-          should.not.exist(err);
-        });
+          .then(function(roles){
+            done();
+          })
+          .catch(function(err) {
+            should.not.exist(err);
+          });
       })
       .catch(function(err) {
         should.not.exist(err);
@@ -578,11 +578,9 @@ describe('Article "routes" Tests:', function() {
       where: {
         title: 'Article Title'
       }
-    })
-    .then(function(){
+    }).then(function(){
       done();
-    })
-    .catch(function(err) {
+    }).catch(function(err) {
       should.not.exist(err);
     });
   });

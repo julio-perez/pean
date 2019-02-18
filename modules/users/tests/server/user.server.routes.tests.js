@@ -66,7 +66,7 @@ describe('User "routes" Tests:', function() {
     // Build new user
     user =
       db.User
-      .build(data);
+        .build(data);
 
     // Save user
     user

@@ -165,7 +165,7 @@
 * Force Lowercase & Remove Sensitive Data ([aafa5e6](https://github.com/meanjs/mean/commit/aafa5e6))
 * Initial commit to return /client to the URL include paths ([d319f92](https://github.com/meanjs/mean/commit/d319f92))
 * Link to editorconfig from CONTRIBUTING.md ([601cf9f](https://github.com/meanjs/mean/commit/601cf9f))
-* local.example.js still has old fb auth callback ([3527537](https://github.com/meanjs/mean/commit/3527537))
+* local-development.js still has old fb auth callback ([3527537](https://github.com/meanjs/mean/commit/3527537))
 * Major Fixing and Refactoring tests ([6db8a4e](https://github.com/meanjs/mean/commit/6db8a4e))
 * Make tests pass ([1f7bfdd](https://github.com/meanjs/mean/commit/1f7bfdd))
 * Make TopBar Public By Default ([e68b422](https://github.com/meanjs/mean/commit/e68b422))

@@ -12,16 +12,14 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: null
     },
     content: DataTypes.TEXT
-  }, {
-    classMethods: {
-      associate: function(models) {
-        Article.belongsTo(models.User, {
-          foreignKey: 'userId',
-          foreignKeyConstraint: true
-        });
-      }
-    }
   });
+
+  Article.associate = function(models) {
+    Article.belongsTo(models.User, {
+      foreignKey: 'userId',
+      foreignKeyConstraint: true
+    });
+  };
 
   return Article;
 };
