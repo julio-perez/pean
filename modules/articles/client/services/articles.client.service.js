@@ -9,7 +9,7 @@
 
   function ArticlesService($resource) {
     return $resource('api/articles/:articleId', {
-      articleId: '@id'
+      articleId: '@article_id'
     }, {
       update: {
         method: 'PUT'

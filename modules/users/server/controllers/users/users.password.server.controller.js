@@ -32,7 +32,7 @@ exports.forgot = function(req, res, next) {
     // Lookup user by username
     function(token, done) {
       if (req.body.username) {
-        db.User
+        db.user
           .findOne({
             where: {
               username: req.body.username
@@ -94,12 +94,14 @@ exports.forgot = function(req, res, next) {
         subject: 'Password Reset',
         html: emailHTML
       };
+
       smtpTransport.sendMail(mailOptions, function(err) {
         if (!err) {
           res.send({
             message: 'An email has been sent to the provided email with further instructions.'
           });
         } else {
+          console.log(err);
           return res.status(400).send({
             message: 'Failure sending email'
           });
@@ -120,7 +122,7 @@ exports.forgot = function(req, res, next) {
  */
 exports.validateResetToken = function(req, res) {
 
-  db.User
+  db.user
     .findOne({
       where: {
         resetPasswordToken: req.params.token,
@@ -157,7 +159,7 @@ exports.reset = function(req, res, next) {
     function(done) {
       var now = moment().toISOString();
 
-      db.User
+      db.user
         .findOne({
           where: {
             resetPasswordToken: req.params.token,
@@ -274,10 +276,10 @@ exports.changePassword = function(req, res, next) {
   if (req.user) {
     if (passwordDetails.newPassword) {
 
-      db.User
+      db.user
         .findOne({
           where: {
-            id: req.user.dataValues.id
+            user_id: req.user.dataValues.user_id
           }
         })
         .then(function(user) {

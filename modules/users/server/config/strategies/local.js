@@ -15,7 +15,7 @@ module.exports = function() {
     passwordField: 'password'
   },
   function(username, password, done) {
-    db.User.findOne({
+    db.user.findOne({
       where: {
         username: username
       }

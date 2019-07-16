@@ -26,17 +26,24 @@ var _ = require('lodash'),
 
 // Set NODE_ENV to 'test'
 gulp.task('env:test', function () {
-  process.env.NODE_ENV = 'test';
+  return new Promise(function(resolve, reject) {
+    resolve(process.env.NODE_ENV = 'test');
+  });
 });
 
 // Set NODE_ENV to 'development'
 gulp.task('env:dev', function () {
-  process.env.NODE_ENV = 'development';
+  return new Promise(function(resolve, reject) {
+    resolve(process.env.NODE_ENV = 'development');
+  });
 });
 
 // Set NODE_ENV to 'production'
 gulp.task('env:prod', function () {
-  process.env.NODE_ENV = 'production';
+  return new Promise(function(resolve, reject) {
+    resolve(process.env.NODE_ENV = 'production');
+  });
+
 });
 
 // Nodemon task
@@ -251,7 +258,7 @@ gulp.task('webdriver_update', webdriver_update);
 gulp.task('webdriver_standalone', webdriver_standalone);
 
 // Protractor test runner task
-gulp.task('protractor', ['webdriver_update'], function () {
+gulp.task('protractor', gulp.series('webdriver_update'), function () {
   gulp.src([])
     .pipe(protractor({
       configFile: 'protractor.conf.js'
@@ -268,14 +275,16 @@ gulp.task('protractor', ['webdriver_update'], function () {
 });
 
 // Lint CSS and JavaScript files.
-gulp.task('lint', function (done) {
-  runSequence('less', 'sass', ['csslint', 'eslint', 'jshint'], done);
-});
+gulp.task('lint', gulp.series('less', 'sass', 'csslint', 'eslint', 'jshint', function (done) {
+  //runSequence('less', 'sass', ['csslint', 'eslint', 'jshint'], done);
+  done();
+}));
 
 // Lint project files and minify them into two production files.
-gulp.task('build', function (done) {
-  runSequence('env:dev', 'lint', ['uglify', 'cssmin'], done);
-});
+gulp.task('build', gulp.series('lint', 'uglify', 'cssmin',function (done) {
+  //runSequence('env:dev', 'lint', ['uglify', 'cssmin'], done);
+  done();
+}));
 
 // Run the project tests
 gulp.task('test', function (done) {
@@ -303,16 +312,14 @@ gulp.task('test:e2e', function (done) {
 });
 
 // Run the project in development mode
-gulp.task('default', function (done) {
-  runSequence('env:dev', 'lint', ['nodemon', 'watch'], done);
-});
+gulp.task('default', gulp.series('env:dev', 'lint', 'nodemon', 'watch', function (done) {
+  done();
+}));
 
-// Run the project in debug mode
-gulp.task('debug', function (done) {
-  runSequence('env:dev', 'lint', ['nodemon', 'watch'], done);
-});
+gulp.task('debug', gulp.series('env:dev', 'lint', 'nodemon', 'watch', function (done) {
+  done();
+}));
 
-// Run the project in production mode
-gulp.task('prod', function (done) {
-  runSequence('templatecache', 'build', 'env:prod', 'lint', ['nodemon', 'watch'], done);
-});
+gulp.task('prod', gulp.series('env:prod', 'templatecache', 'build', 'lint', 'nodemon', 'watch', function (done) {
+  done();
+}));

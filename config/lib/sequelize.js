@@ -7,13 +7,36 @@ var config = require('../config'),
   Sequelize = require('sequelize');
 
 var db = {};
+var Op = Sequelize.Op;
 
 // Sequelize
 var sequelize = new Sequelize(config.db.options.database, config.db.options.username, config.db.options.password, {
   dialect: 'postgres',
   logging: config.db.options.logging, 
   host: config.db.options.host,
-  port: config.db.options.port
+  port: config.db.options.port,
+
+  pool: {
+    max: 10,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  },
+
+  define: {
+    freezeTableName: true,
+    timestamps: true
+  },
+
+  operatorsAliases: {
+    $and: Op.and,
+    $or: Op.or,
+    $eq: Op.eq,
+    $gt: Op.gt,
+    $lt: Op.lt,
+    $lte: Op.lte,
+    $like: Op.like
+  }
 });
 
 // Import models

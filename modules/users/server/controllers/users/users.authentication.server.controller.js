@@ -20,8 +20,8 @@ var Op = db.Sequelize.Op;
  * Signup
  */
 exports.signup = function(req, res) {
+
   // For security measurement we remove the roles from the req.body object
-  console.log(req.body);
   delete req.body.roles;
 
   // Init Variables
@@ -32,7 +32,7 @@ exports.signup = function(req, res) {
   var displayName = req.body.firstName + ' ' + req.body.lastName;
 
   // Save user
-  db.User
+  db.user
     .create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -52,7 +52,7 @@ exports.signup = function(req, res) {
 
       console.log(user);
       // Find role
-      db.Role
+      db.role
         .findOne({
           where: {
             name: 'user'
@@ -65,10 +65,8 @@ exports.signup = function(req, res) {
             .then(function(role) {
 
               user.dataValues.roles = ['user'];
-
               user.dataValues.password = null;
               user.dataValues.salt = null;
-
               user._previousDataValues.password = null;
               user._previousDataValues.salt = null;
               // Login
@@ -98,7 +96,6 @@ exports.signup = function(req, res) {
       return null;
     })
     .catch(function(err) {
-      console.log('what!!!');
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -110,6 +107,7 @@ exports.signup = function(req, res) {
  */
 exports.signin = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
+
     if (err || !user) {
       res.status(400).send(info);
     } else {
@@ -127,7 +125,16 @@ exports.signin = function(req, res, next) {
               });
 
               user.dataValues.roles = rolesArray;
+              delete user.dataValues['salt'];
+              delete user.dataValues['password'];
+              delete user.dataValues['resetPasswordToken'];
 
+              delete user._previousDataValues['salt'];
+              delete user._previousDataValues['password'];
+              delete user._previousDataValues['resetPasswordToken'];
+
+              console.log(user.dataValues);
+              console.log(user._previousDataValues);
               return res.json(user);
             })
             .catch(function(err) {
@@ -220,7 +227,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
       [Op.or]: [mainProviderSearchQuery, additionalProviderSearchQuery]
     };
 
-    db.User
+    db.user
       .findOne({
         where: searchQuery
       })
@@ -229,11 +236,11 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
         if (!user) {
           var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
-          db.User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
+          db.user.findUniqueUsername(possibleUsername, null, function(availableUsername) {
 
             if (availableUsername) {
 
-              db.User
+              db.user
                 .create({
                   firstName: providerUserProfile.firstName,
                   lastName: providerUserProfile.lastName,
@@ -246,7 +253,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
                 })
                 .then(function(user) {
 
-                  db.Role
+                  db.role
                     .findOne({
                       where: {
                         name: 'user'

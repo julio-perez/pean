@@ -14,10 +14,10 @@ exports.create = function(req, res) {
   // console.log('* articles.server.controller - create *');
 
   // save and return and instance of article on the res object. 
-  db.Article.create({
+  db.article.create({
     title: req.body.title,
     content: req.body.content,
-    userId: req.user.id
+    user_id: req.user.user_id
   }).then(function(newArticle) {
     return res.json(newArticle);
   }).catch(function(err) {
@@ -35,13 +35,13 @@ exports.delete = function(req, res) {
 
   var id = req.params.articleId;
 
-  db.Article
+  db.article
     .findOne({
       where: {
-        id: id
+        article_id: id
       },
       include: [
-        db.User
+        db.user
       ]
     })
     .then(function(article) {
@@ -70,9 +70,9 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   // console.log('* articles.server.controller - list *');
 
-  db.Article.findAll({
+  db.article.findAll({
     include: [
-      db.User
+      db.user
     ]
   }).then(function(articles) {
     return res.json(articles);
@@ -92,12 +92,12 @@ exports.read = function(req, res) {
 
   var id = req.params.articleId;
 
-  db.Article.find({
+  db.article.find({
     where: {
-      id: id
+      article_id: id
     },
     include: [
-      db.User
+      db.user
     ]
   }).then(function(article) {
     return res.json(article);
@@ -116,13 +116,13 @@ exports.update = function(req, res) {
 
   var id = req.params.articleId;
 
-  db.Article
+  db.article
     .findOne({
       where: {
-        id: id
+        article_id: id
       },
       include: [
-        db.User
+        db.user
       ]
     }).then(function(article) {
       article.updateAttributes({

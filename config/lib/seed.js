@@ -53,7 +53,7 @@ function saveUser(user, roles) {
  */
 function checkUserNotExists(user) {
   return new Promise(function(resolve, reject) {
-    db.User
+    db.user
       .findAll({
         where: {
           username: user.username
@@ -101,7 +101,7 @@ function seedRoles(roles) {
     });
 
     // Create roles
-    db.Role
+    db.role
       .bulkCreate(rolesArray)
       .then(function() {
         resolve();
@@ -191,7 +191,7 @@ module.exports.start = function start() {
 
   // Check for provided options
   if (_.has(data, 'user')) {
-    var userAccount = db.User.build({
+    var userAccount = db.user.build({
       username: data.user.username,
       provider: data.user.provider,
       email: data.user.email,
@@ -206,7 +206,7 @@ module.exports.start = function start() {
   }
 
   if (_.has(data, 'admin')) {
-    var adminAccount = db.User.build({
+    var adminAccount = db.user.build({
       username: data.admin.username,
       provider: data.admin.provider,
       email: data.admin.email,
@@ -225,7 +225,7 @@ module.exports.start = function start() {
     //If production only seed admin if it does not exist
     if (process.env.NODE_ENV === 'production') {
       // Add Admin account
-      db.User.generateRandomPassphrase()
+      db.user.generateRandomPassphrase()
         .then(seedUser(adminAccount, adminRoles))
         .then(function() {
           resolve();
@@ -234,9 +234,9 @@ module.exports.start = function start() {
 
     } else {
       // Add both Admin and User account
-      db.User.generateRandomPassphrase()
+      db.user.generateRandomPassphrase()
         .then(seedUser(userAccount, userRoles))
-        .then(db.User.generateRandomPassphrase)
+        .then(db.user.generateRandomPassphrase)
         .then(seedUser(adminAccount, adminRoles))
         .then(function() {
           resolve();

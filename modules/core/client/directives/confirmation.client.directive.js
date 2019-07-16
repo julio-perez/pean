@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('core').directive('customConfirmation', ['$modal',
-  function($modal) {
+angular.module('core').directive('customConfirmation', ['$uibModal',
+  function($uibModal) {
 
-    var ModalInstanceCtrl = function($scope, $modalInstance) {
+    var ModalInstanceCtrl = function($scope, $uibModalInstance) {
       $scope.ok = function() {
-        $modalInstance.close();
+        $uibModalInstance.close();
       };
 
       $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
       };
     };
 
@@ -27,7 +27,7 @@ angular.module('core').directive('customConfirmation', ['$modal',
           modalHtml += '<div class="modal-body">' + message + '</div>';
           modalHtml += '<div class="modal-footer"><button class="btn btn-success" ng-click="ok()">Yes</button><button class="btn btn-danger" ng-click="cancel()">No</button></div>';
 
-          var modalInstance = $modal.open({
+          var modalInstance = $uibModal.open({
             template: modalHtml,
             controller: ModalInstanceCtrl
           });

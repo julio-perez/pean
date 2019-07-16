@@ -23,10 +23,10 @@ exports.read = function (req, res) {
 
   var userId = req.params.userId;
   
-  db.User
+  db.user
     .findOne({
       where: {
-        id: userId
+        user_id: userId
       },
       include: [{
         all: true
@@ -53,10 +53,10 @@ exports.delete = function(req, res) {
 
   var userId = req.params.userId;
 
-  db.User
+  db.user
     .findOne({
       where: {
-        id: userId
+        user_id: userId
       },
       include: [{
         all: true
@@ -98,7 +98,7 @@ exports.list = function(req, res) {
 
   var query = '%' + search + '%';
 
-  db.User
+  db.user
     .findAndCountAll({
       where: {
         [Op.or]: [{
@@ -159,10 +159,10 @@ exports.modify = function(req, res) {
     roles = [];
   }
 
-  db.User
+  db.user
     .findOne({
       where: {
-        id: userId
+        user_id: userId
       },
       include: [{
         all: true
@@ -174,10 +174,10 @@ exports.modify = function(req, res) {
         .setRoles(roles)
         .then(function(roles) {
 
-          db.User
+          db.user
             .findOne({
               where: {
-                id: userId
+                user_id: userId
               },
               include: [{
                 all: true
@@ -218,7 +218,7 @@ exports.modify = function(req, res) {
 exports.roles = function (req, res) {
   // console.log('* user.server.controller - roles *');
   
-  db.Role
+  db.role
     .findAll()
     .then(function(roles) {
       return res.json(roles);

@@ -17,7 +17,7 @@ var hashPassword = function(user, password) {
   }
 
   if (user.dataValues.salt && user.dataValues.password) {
-    return crypto.pbkdf2Sync(password, new Buffer(user.dataValues.salt, 'base64'), 10000, 64).toString('base64');
+    return crypto.pbkdf2Sync(password, new Buffer(user.dataValues.salt, 'base64'), 10000, 64, 'sha512').toString('base64');
   } else {
     return password;
   }
@@ -61,7 +61,46 @@ var checkPassword = function(user) {
  */
 module.exports = function(sequelize, DataTypes) {
 
-  var User = sequelize.define('User', {
+  var userRole = sequelize.define('user_role', {
+    userUserId: {
+      type: DataTypes.INTEGER,
+      field: 'user_user_id',
+      references: {
+        model: 'user',
+        key: 'user_id'
+      }
+    },
+    roleRoleId: {
+      type: DataTypes.INTEGER,
+      field: 'role_role_id',
+      references: {
+        model: 'role',
+        key: 'role_id'
+      }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at',
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at',
+      defaultValue: DataTypes.NOW
+    }
+  }, {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    userUserId: 'user_user_id',
+    roleRoleId: 'role_role_id'
+  });
+
+  var User = sequelize.define('user', {
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true // Automatically gets converted to SERIAL for postgres
+    },
     firstName: {
       allowNull: false,
       type: DataTypes.STRING,
@@ -92,7 +131,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true
     },
     password: {
-      allowNull: function() {
+      allowNull: function () {
         var isLocal = this.provider === 'local';
         return isLocal;
       },
@@ -116,7 +155,20 @@ module.exports = function(sequelize, DataTypes) {
     },
     resetPasswordExpires: {
       type: DataTypes.DATE
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'created_at',
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated_at',
+      defaultValue: DataTypes.NOW
     }
+  }, {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   });
 
   /**
@@ -151,28 +203,29 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-   /**
-   * Associate
-   * @param  {[type]} models [description]
-   * @return {[type]}        [description]
-   */
-    User.associate = function(models) {
-      User.belongsToMany(models.Role, {
-        through: 'UserRole'
-      });
-    };
-    /**
-     * Find unique username
-     * @param  {[type]}   username [description]
-     * @param  {[type]}   suffix   [description]
-     * @param  {Function} callback [description]
-     * @return {[type]}            [description]
-     */
-    User.findUniqueUsername = function(username, suffix, callback) {
-      var _this = this;
-      var possibleUsername = username.toLowerCase() + (suffix || '');
+  /**
+  * Associate
+  * @param  {[type]} models [description]
+  * @return {[type]}        [description]
+  */
+  User.associate = function(models) {
+    User.belongsToMany(models.role, {
+      through: userRole
+    });
+  };
+  /**
+  * Find unique username
+  * @param  {[type]}   username [description]
+  * @param  {[type]}   suffix   [description]
+  * @param  {Function} callback [description]
+  * @return {[type]}            [description]
+  */
+  User.findUniqueUsername = function(username, suffix, callback) {
 
-      _this
+    var _this = this;
+    var possibleUsername = username.toLowerCase() + (suffix || '');
+
+    _this
       .findOne({
         where: {
           username: possibleUsername
@@ -191,51 +244,51 @@ module.exports = function(sequelize, DataTypes) {
         console.log(err);
         callback(null);
       });
-    };
-    /**
-     * Generate random passphrase
-     * @return {[type]} [description]
-     */
-    User.generateRandomPassphrase = function() {
-      return new Promise(function(resolve, reject) {
-        var password = '';
-        var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
+  };
+  /**
+  * Generate random passphrase
+  * @return {[type]} [description]
+  */
+  User.generateRandomPassphrase = function() {
+    return new Promise(function(resolve, reject) {
+      var password = '';
+      var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
 
-        // iterate until the we have a valid passphrase.
-        // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
-        while (password.length < 20 || repeatingCharacters.test(password)) {
-          // build the random password
-          password = generatePassword.generate({
-            length: Math.floor(Math.random() * (20)) + 20, // randomize length between 20 and 40 characters
-            numbers: true,
-            symbols: false,
-            uppercase: true,
-            excludeSimilarCharacters: true,
-          });
+      // iterate until the we have a valid passphrase.
+      // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
+      while (password.length < 20 || repeatingCharacters.test(password)) {
+        // build the random password
+        password = generatePassword.generate({
+          length: Math.floor(Math.random() * (20)) + 20, // randomize length between 20 and 40 characters
+          numbers: true,
+          symbols: false,
+          uppercase: true,
+          excludeSimilarCharacters: true,
+        });
 
-          // check if we need to remove any repeating characters.
-          password = password.replace(repeatingCharacters, '');
-        }
+        // check if we need to remove any repeating characters.
+        password = password.replace(repeatingCharacters, '');
+      }
 
-        // Send the rejection back if the passphrase fails to pass the strength test
-        if (owasp.test(password).errors.length) {
-          reject(new Error('An unexpected problem occured while generating the random passphrase'));
-        } else {
-          // resolve with the validated passphrase
-          resolve(password);
-        }
-      });
-    };
+      // Send the rejection back if the passphrase fails to pass the strength test
+      if (owasp.test(password).errors.length) {
+        reject(new Error('An unexpected problem occured while generating the random passphrase'));
+      } else {
+        // resolve with the validated passphrase
+        resolve(password);
+      }
+    });
+  };
 
-    /**
-     * Authenticate
-     * @param  {[type]} user     [description]
-     * @param  {[type]} password [description]
-     * @return {[type]}          [description]
-     */
-    User.prototype.authenticate = function(user, password) {
-      return user.dataValues.password === hashPassword(user, password);
-    };
+  /**
+  * Authenticate
+  * @param  {[type]} user     [description]
+  * @param  {[type]} password [description]
+  * @return {[type]}          [description]
+  */
+  User.prototype.authenticate = function(user, password) {
+    return user.dataValues.password === hashPassword(user, password);
+  };
 
-    return User;
+  return User;
 };

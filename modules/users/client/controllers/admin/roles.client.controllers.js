@@ -5,7 +5,7 @@ angular.module('users').controller('RolesController', [
 
   '$http',
   '$location',
-  '$modalInstance',
+  '$uibModalInstance',
   '$rootScope',
   '$scope',
 
@@ -17,7 +17,7 @@ angular.module('users').controller('RolesController', [
 
     $http,
     $location,
-    $modalInstance,
+    $uibModalInstance,
     $rootScope,
     $scope,
 
@@ -30,7 +30,7 @@ angular.module('users').controller('RolesController', [
      * Dismiss
      */
     $scope.dismiss = function() {
-      $modalInstance.dismiss(true);
+      $uibModalInstance.dismiss(true);
     };
 
     /**
@@ -43,7 +43,6 @@ angular.module('users').controller('RolesController', [
         method: 'GET'
       })
         .success(function(data) {
-          console.log(data);
           $scope.roles = data;
         });
     };
@@ -55,9 +54,8 @@ angular.module('users').controller('RolesController', [
      */
     $scope.isChecked = function(roleId) {
       var rolesArray = [];
-
-      _.each(user.Roles, function(Role) {
-        rolesArray.push(Role.id);
+      _.each(user.roles, function(Role) {
+        rolesArray.push(Role.role_id);
       });
 
       if (rolesArray.indexOf(roleId) !== -1) {
@@ -71,9 +69,8 @@ angular.module('users').controller('RolesController', [
      */
     $scope.update = function(roleId) {
       var rolesArray = [];
-
-      _.each(user.Roles, function(Role) {
-        rolesArray.push(Role.id);
+      _.each(user.roles, function(Role) {
+        rolesArray.push(Role.role_id);
       });
 
       if (rolesArray.indexOf(roleId) === -1) {
@@ -89,7 +86,7 @@ angular.module('users').controller('RolesController', [
       };
 
       $http({
-        url: 'api/users/admin/' + user.id,
+        url: 'api/users/admin/' + user.user_id,
         method: 'PUT',
         params: params
       })

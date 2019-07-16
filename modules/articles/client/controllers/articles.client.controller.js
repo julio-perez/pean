@@ -32,7 +32,7 @@
       }
 
       // TODO: move create/update logic to service
-      if (vm.article.id) {
+      if (vm.article.article_id) {
         vm.article.$update(successCallback, errorCallback);
       } else {
         vm.article.$save(successCallback, errorCallback);

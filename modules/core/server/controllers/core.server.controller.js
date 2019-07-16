@@ -11,6 +11,7 @@ exports.renderIndex = function (req, res) {
 
   if (req.user) {
     safeUserObject = {
+      user_id: req.user.dataValues.user_id,
       displayName: validator.escape(req.user.displayName),
       provider: validator.escape(req.user.provider),
       username: validator.escape(req.user.username),

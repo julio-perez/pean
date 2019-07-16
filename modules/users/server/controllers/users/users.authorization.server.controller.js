@@ -11,7 +11,7 @@ var _ = require('lodash'),
  * User middleware
  */
 exports.userByID = function(req, res, next, id) {
-  db.User
+  db.user
     .findOne({
       where: {
         id: id

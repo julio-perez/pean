@@ -15,17 +15,17 @@ var _ = require('lodash'),
 module.exports = function(app) {
   // Serialize sessions
   passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.user_id);
 
     return null;
   });
 
   // Deserialize sessions
   passport.deserializeUser(function(id, done) {
-    db.User
+    db.user
       .findOne({
         where: {
-          id: id
+          user_id: id
         }
       })
       .then(function(user) {

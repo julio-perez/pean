@@ -2,8 +2,8 @@
   <div class="page-header">
     <h1 ng-bind="vm.article.title"></h1>
   </div>
-  <div class="pull-right" ng-show="vm.authentication.user.id == vm.article.userId">
-    <a class="btn btn-primary" ui-sref="articles.edit({ articleId: vm.article.id })">
+  <div class="pull-right" ng-show="vm.authentication.user.user_id == vm.article.user_id">
+    <a class="btn btn-primary" ui-sref="articles.edit({ articleId: vm.article.article_id })">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
     <a class="btn btn-primary" ng-click="vm.remove()">
@@ -15,8 +15,8 @@
       Posted on
       <span ng-bind="vm.article.createdAt | date:'mediumDate'"></span>
       by
-      <span ng-if="vm.article.User" ng-bind="vm.article.User.displayName"></span>
-      <span ng-if="!vm.article.User">Deleted User</span>
+      <span ng-if="vm.article.user" ng-bind="vm.article.user.displayName"></span>
+      <span ng-if="!vm.article.user">Deleted User</span>
     </em>
   </small>
   <p class="lead" ng-bind="vm.article.content"></p>
