@@ -40,7 +40,7 @@
 
       function successCallback(res) {
         $state.go('articles.view', {
-          articleId: res.id
+          articleId: res.article_id
         });
       }
 
