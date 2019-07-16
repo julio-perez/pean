@@ -51,7 +51,7 @@ There are several ways you can get the PEAN.JS boilerplate:
 The recommended way to get PEAN.js is to use git to directly clone the PEAN.JS repository:
 
 ```bash
-$ git clone https://github.com/StetSolutions/pean.git peanjs
+$ git clone https://github.com/julio-perez/pean.git peanjs
 ```
 
 This will clone the latest version of the PEAN.JS repository to a **peanjs** folder.
@@ -60,7 +60,7 @@ This will clone the latest version of the PEAN.JS repository to a **peanjs** fol
 Another way to use the PEAN.JS boilerplate is to download a zip copy from the [master branch on GitHub](https://github.com/StetSolutions/pean/archive/master.zip). You can also do this using `wget` command:
 
 ```bash
-$ wget https://github.com/StetSolutions/pean/archive/master.zip -O peanjs.zip; unzip peanjs.zip; rm peanjs.zip
+$ wget https://github.com/julio-perez/pean/archive/master.zip -O peanjs.zip; unzip peanjs.zip; rm peanjs.zip
 ```
 
 Don't forget to rename **pean-master** after your project name.
