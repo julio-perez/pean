@@ -156,6 +156,9 @@ gulp.task('uglify', function () {
 
   return gulp.src(assets)
     .pipe(plugins.ngAnnotate())
+    .pipe(plugins.babel({
+      presets: ['@babel/env']
+    }))
     .pipe(plugins.uglify({
       mangle: false
     }))
@@ -281,7 +284,7 @@ gulp.task('lint', gulp.series('less', 'sass', 'csslint', 'eslint', 'jshint', fun
 }));
 
 // Lint project files and minify them into two production files.
-gulp.task('build', gulp.series('lint', 'uglify', 'cssmin',function (done) {
+gulp.task('build', gulp.series('templatecache','env:dev', 'lint', 'uglify', 'cssmin',function (done) {
   //runSequence('env:dev', 'lint', ['uglify', 'cssmin'], done);
   done();
 }));
