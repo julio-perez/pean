@@ -49,3 +49,18 @@ body {
 .container {
   max-width: 100% !important;
 }
+
+@media (min-width: 1024px) {
+  .navbar {
+    min-height: 75px;
+  }
+  ul.dropdown-menu.pean-dropdown-menu {
+    margin-top: 25px;
+  }
+  ul.dropdown-menu.pean-user-dropdown-menu {
+    margin-top: 25px;
+  }
+  .pean-main-section {
+    margin-top: 25px;
+  }
+}
