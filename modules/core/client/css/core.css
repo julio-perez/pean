@@ -43,9 +43,3 @@ a:hover .header-profile-image {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
 }
-body {
-  overscroll-behavior: none;
-}
-.container {
-  max-width: 100% !important;
-}

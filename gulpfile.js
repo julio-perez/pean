@@ -8,6 +8,7 @@ var _ = require('lodash'),
   testAssets = require('./config/assets/test'),
   glob = require('glob'),
   gulp = require('gulp'),
+  babel = require('gulp-babel'),
   gulpLoadPlugins = require('gulp-load-plugins'),
   runSequence = require('run-sequence'),
   plugins = gulpLoadPlugins({
@@ -155,9 +156,12 @@ gulp.task('uglify', function () {
   );
 
   return gulp.src(assets)
-    .pipe(plugins.ngAnnotate())
-    .pipe(plugins.babel({
-      presets: ['@babel/env']
+    .pipe(babel({
+      'presets': [
+        [
+          '@babel/preset-env'
+        ]],
+      'plugins': ['angularjs-annotate']
     }))
     .pipe(plugins.uglify({
       mangle: false
