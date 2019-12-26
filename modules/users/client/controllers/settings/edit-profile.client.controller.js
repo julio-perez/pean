@@ -10,7 +10,6 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
-
         return false;
       }
 

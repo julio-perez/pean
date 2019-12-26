@@ -42,7 +42,7 @@ angular.module('users').controller('RolesController', [
         url: 'api/users/roles',
         method: 'GET'
       })
-        .success(function(data) {
+        .then(function(data) {
           $scope.roles = data;
         });
     };
@@ -90,7 +90,7 @@ angular.module('users').controller('RolesController', [
         method: 'PUT',
         params: params
       })
-        .success(function(data) {
+        .then(function(data) {
           $rootScope.$emit('rolesUpdate');
           user = data;
         });

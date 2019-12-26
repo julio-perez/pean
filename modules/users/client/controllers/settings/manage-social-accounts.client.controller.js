@@ -9,7 +9,6 @@ angular.module('users').controller('SocialAccountsController', ['$scope', '$http
       for (var i in $scope.user.additionalProvidersData) {
         return true;
       }
-
       return false;
     };
 
@@ -26,12 +25,14 @@ angular.module('users').controller('SocialAccountsController', ['$scope', '$http
         params: {
           provider: provider
         }
-      }).success(function (response) {
+      }).then(function (response) {
+        console.log(response);
         // If successful show success message and clear form
         $scope.success = true;
         $scope.user = Authentication.user = response;
-      }).error(function (response) {
-        $scope.error = response.message;
+      }, function (response) {
+        console.log(response);
+        $scope.error = response.data.message;
       });
     };
   }

@@ -92,7 +92,7 @@ exports.read = function(req, res) {
 
   var id = req.params.articleId;
 
-  db.article.find({
+  db.article.findOne({
     where: {
       article_id: id
     },
@@ -125,7 +125,7 @@ exports.update = function(req, res) {
         db.user
       ]
     }).then(function(article) {
-      article.updateAttributes({
+      article.update({
         title: req.body.title,
         content: req.body.content
       }).then(function() {

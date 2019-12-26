@@ -33,6 +33,10 @@ exports.read = function (req, res) {
       }]
     })
     .then(function(user) {
+      user.dataValues.password = null;
+      user.dataValues.salt = null;
+      user._previousDataValues.password = null;
+      user._previousDataValues.salt = null;
       return res.json(user);
     })
     .catch(function(err) {
@@ -69,6 +73,7 @@ exports.delete = function(req, res) {
           return res.json(user);
         })
         .catch(function(err) {
+          console.log(err);
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
@@ -77,6 +82,7 @@ exports.delete = function(req, res) {
       return null;
     })
     .catch(function(err) {
+      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

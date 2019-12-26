@@ -57,10 +57,9 @@ angular.module('users').controller('UsersController', [
         url: 'api/users/admin',
         method: 'GET',
         params: params
-      }).success(function(data) {
-        $scope.totalItems = data.count;
-        $scope.users = data.rows;
-
+      }).then(function(data) {
+        $scope.totalItems = data.data.count;
+        $scope.users = data.data.rows;
         $scope.numberOfPages = Math.ceil($scope.totalItems / $scope.pageSize);
 
         if ($scope.numberOfPages !== 0 && $scope.currentPage > $scope.numberOfPages) {
@@ -79,22 +78,20 @@ angular.module('users').controller('UsersController', [
      * @param article
      */
     $scope.remove = function(user) {
-      console.log(user);
-
       if (user) {
-
         $http({
-          url: 'api/users/admin/' + user.id,
+          url: 'api/users/admin/' + user.user_id,
           method: 'DELETE'
-        }).success(function(data) {
-          console.log(data);
+        }).then(function(data) {
+          for (var i in $scope.users) {
+            if ($scope.users[i] === user) {
+              $scope.users.splice(i, 1);
+            }
+          }
+        }, function(error) {
+          alert(error.data.message);
         });
 
-        for (var i in $scope.users) {
-          if ($scope.users[i] === user) {
-            $scope.users.splice(i, 1);
-          }
-        }
       } else {
         $scope.user.$remove(function() {
           $location.path('users');

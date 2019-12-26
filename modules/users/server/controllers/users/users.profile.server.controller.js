@@ -92,6 +92,13 @@ exports.changeProfilePicture = function(req, res) {
               if (err) {
                 res.status(400).send(err);
               } else {
+
+                user.dataValues.password = null;
+                user.dataValues.salt = null;
+                user._previousDataValues.password = null;
+                user._previousDataValues.salt = null;
+
+
                 res.json(user);
               }
             });
