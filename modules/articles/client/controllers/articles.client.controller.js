@@ -20,8 +20,17 @@
     // Remove existing Article
     function remove() {
       if (confirm('Are you sure you want to delete?')) {
-        vm.article.$remove($state.go('articles.list'));
+        vm.article.$remove(successCallback, errorCallback); ///*$state.go('articles.list')*/ );
       }
+
+      function successCallback(res) {
+        $state.go('articles.list');
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+
     }
 
     // Save Article

@@ -14,7 +14,7 @@ exports.userByID = function(req, res, next, id) {
   db.user
     .findOne({
       where: {
-        id: id
+        user_id: id
       },
       include: [{
         all: true

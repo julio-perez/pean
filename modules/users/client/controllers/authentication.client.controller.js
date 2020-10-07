@@ -2,6 +2,7 @@
 
 angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator',
   function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator) {
+
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
 
@@ -18,19 +19,19 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
-
         return false;
       }
 
-      $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
-        // If successful we assign the response to the global user model
-        $scope.authentication.user = response;
+      $http.post('/api/auth/signup', $scope.credentials)
+        .then(function (response) {
+          // If successful we assign the response to the global user model
+          $scope.authentication.user = response.data;
 
-        // And redirect to the previous or home page
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
-      }).error(function (response) {
-        $scope.error = response.message;
-      });
+          // And redirect to the previous or home page
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
+        }, function (response) {
+          $scope.error = response.data.message;
+        });
     };
 
     $scope.signin = function (isValid) {
@@ -38,19 +39,19 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
-
         return false;
       }
 
-      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
-        // If successful we assign the response to the global user model
-        $scope.authentication.user = response;
+      $http.post('/api/auth/signin', $scope.credentials)
+        .then(function (response) {
+          // If successful we assign the response to the global user model
+          $scope.authentication.user = response.data;
 
-        // And redirect to the previous or home page
-        $state.go($state.previous.state.name || 'home', $state.previous.params);
-      }).error(function (response) {
-        $scope.error = response.message;
-      });
+          // And redirect to the previous or home page
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
+        }, function (response) {
+          $scope.error = response.data.message;
+        });
     };
 
     // OAuth provider request
