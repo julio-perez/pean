@@ -9,7 +9,7 @@
       <section>
         <div class="row">
           <div class="col-md-12">
-            <h2 class="page-header"><i class="fa fa-users fa-fw"></i> Users</h2>
+            <h2 class="page-header"><i class="fas fa-user-plus" ng-style={'font-size':'36px'}></i> Users</h2>
           </div>
         </div>
         <!-- Search -->
@@ -51,17 +51,15 @@
                     <button
                         custom-confirmation="remove(user)"
                         custom-message="Are you sure you want to remove <strong>{{user.displayName | capitalize: all}}</strong> as a user?"
-                        class="btn btn-default"
-                        >
-                      <i class="fa fa-trash-o"></i>
+                        class="btn btn-default">
+                      <i class="fas fa-remove"></i>
                     </button>
                   </td>
                   <td>
                     <button
                         data-ng-click="openRolesModal($index, 'sm')"
-                        class="btn btn-default"
-                        >
-                      <i class="fa fa-plus-circle"></i> Roles
+                        class="btn btn-default">
+                      <i class="fas fa-user-plus"></i> Roles
                     </button>
                   </td>
                   <td
@@ -90,12 +88,12 @@
                   data-ng-click="clickFastBackward()"
                   data-ng-disabled="numberOfPages == 0 || currentPage == 1"
                   class="btn btn-default"
-                ><i class="fa fa-fast-backward"></i>
+                ><i class="fas fa-fast-backward"></i>
                 </button>
                 <button
                   data-ng-click="clickBackward()"
                   data-ng-disabled="numberOfPages == 0 || currentPage == 1" class="btn btn-default"
-                ><i class="fa fa-backward"></i>
+                ><i class="fas fa-backward"></i>
                 </button>
                 <input
                   data-ng-change="changePage()"
@@ -105,20 +103,19 @@
                   class="form-control"
                   min="1"
                   max="numberOfPages"
-                  type="number"
-                >
+                  type="number">
                 <span>/ {{ numberOfPages }}</span>
                 <button
                   data-ng-click="clickForward()"
                   data-ng-disabled="numberOfPages == 0 || currentPage == numberOfPages"
                   class="btn btn-default"
-                ><i class="fa fa-forward"></i>
+                ><i class="fas fa-forward"></i>
                 </button>
                 <button
                   data-ng-click="clickFastForward()"
                   data-ng-disabled="numberOfPages == 0 || currentPage == numberOfPages"
                   class="btn btn-default"
-                ><i class="fa fa-fast-forward"></i>
+                ><i class="fas fa-fast-forward"></i>
                 </button>
               </div>
             </div>
@@ -151,7 +148,7 @@
             <h3 class="modal-title">
               <div class="row">
                 <div class="col-md-2">
-                  <i class="fa fa-user fa-fw"></i>
+                  <i class="fas fa-user"></i>
                 </div>
                 <div class="col-md-8">
                   {{user.displayName}}

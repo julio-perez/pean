@@ -17,9 +17,11 @@
   "scripts": {
     "start": "grunt",
     "test": "grunt test",
-    "postinstall": "bower install --allow-root && bower prune --allow-root"
+    "postinstall": "bower install --allow-root && bower prune --allow-root && npm run copy-libs",
+    "copy-libs": "cpx \"node_modules/{ui-bootstrap4*,@popper*}/**/*\" public/lib -C"
   },
   "dependencies": {
+    "@popperjs/core": "^2.5.3",
     "acl": "^0.4.11",
     "async": "^2.6.3",
     "body-parser": "^1.19.0",
@@ -31,6 +33,7 @@
     "connect-session-sequelize": "^6.0.0",
     "consolidate": "^0.15.1",
     "cookie-parser": "^1.4.4",
+    "cpx": "^1.5.0",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
@@ -82,10 +85,11 @@
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "phantomjs": "^2.1.7",
-    "sequelize": "^5.0.0",
+    "sequelize": "^5.22.3",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.2.0",
     "swig": "^1.4.2",
+    "ui-bootstrap4": "^3.0.6",
     "validator": "^11.1.0"
   },
   "devDependencies": {
