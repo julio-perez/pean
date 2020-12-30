@@ -15,16 +15,16 @@
   "sub": true,
   "globals": { // Globals variables.
     "angular": true,
-    "io": true,
-    "ApplicationConfiguration": true
+    "ApplicationConfiguration": true,
+    "io": true
   },
   "predef": [ // Extra globals.
     "angular",
     "ApplicationConfiguration',
-    "inject",
-    "by",
     "browser",
+    "by",    
     "element"
+    "inject"
   ],
   "devel": true // Allow development statements e.g. `console.log();`.
 }
