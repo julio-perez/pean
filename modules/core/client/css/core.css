@@ -38,11 +38,6 @@ a:hover {
   opacity: 0.8;
   width: 28px;
 }
-html {
-  height  : 100%;
-  overflow: hidden;
-  position: relative;
-}
 .open .header-profile-image,
 a:hover .header-profile-image {
   opacity: 1;
