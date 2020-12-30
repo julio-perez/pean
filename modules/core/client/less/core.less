@@ -3,50 +3,52 @@ html {
   overflow: hidden;
   position: relative;
 }
-
 body {
   height  : 100%;
   overflow: auto;
   position: relative;
 }
-
+a:hover {
+  text-decoration: none;
+}
 .content {
   margin-top: 50px;
 }
-
 .custom-pagination {
-  input,
-  select {
-    width: 75px;
-    display: inline-block;
-  }
-
   margin-bottom: 20px;
 }
-
+.custom-pagination input,
+.custom-pagination select {
+  display: inline-block;
+  width: 75px;
+}
 .error-text {
   display: none;
 }
-
 .has-error .help-block.error-text {
   display: block;
 }
-
 .has-error .help-inline.error-text {
   display: inline;
 }
-
 .header-profile-image {
-  opacity: 0.8;
-  height: 28px;
-  width: 28px;
   border-radius: 50%;
+  height: 28px;
   margin-right: 5px;
+  opacity: 0.8;
+  width: 28px;
 }
-
+html {
+  height  : 100%;
+  overflow: hidden;
+  position: relative;
+}
 .open .header-profile-image,
 a:hover .header-profile-image {
   opacity: 1;
+}
+.page-header {
+  margin-top: 6rem !important
 }
 
 [ng\:cloak],
@@ -56,12 +58,26 @@ a:hover .header-profile-image {
 .x-ng-cloak {
   display: none !important;
 }
-
 .undecorated-link:hover {
   text-decoration: none;
 }
-
 .user-header-dropdown-toggle {
-  padding-top: 11px !important;
   padding-bottom: 11px !important;
+  padding-top: 11px !important;
+}
+.vertical-divider {
+  border-left:1px solid #de1b16;
+  margin-left:5px;
+  margin-right:5px;
+  width:1px;
+}
+
+.mt-6, .my-6 {
+  margin-top: 6.5rem !important;
+}
+
+@media (min-width: 768px) {
+  .mr-sm-6 {
+    margin-right: 8.5rem !important;
+  }
 }
