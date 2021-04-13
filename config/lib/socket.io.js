@@ -1,7 +1,7 @@
 'use strict';
 
 // Load the module dependencies
-var config = require('../config'),
+let config = require('../config'),
   path = require('path'),
   fs = require('fs'),
   http = require('http'),
@@ -14,17 +14,17 @@ var config = require('../config'),
 
 // Define the Socket.io configuration method
 module.exports = function (app, db) {
-  var server;
+  let server;
   if (config.secure && config.secure.ssl === true) {
     // Load SSL key and certificate
-    var privateKey = fs.readFileSync(path.resolve(config.secure.privateKey), 'utf8');
-    var certificate = fs.readFileSync(path.resolve(config.secure.certificate), 'utf8');
-    var options = {
+    let privateKey = fs.readFileSync(path.resolve(config.secure.privateKey), 'utf8');
+    let certificate = fs.readFileSync(path.resolve(config.secure.certificate), 'utf8');
+    let options = {
       key: privateKey,
       cert: certificate,
       //  requestCert : true,
       //  rejectUnauthorized : true,
-      secureProtocol: 'TLS_method',
+      secureProtocol: 'TLSv1_2_method',
       ciphers: [
         'TLS_AES_256_GCM_SHA384',
         'TLS_CHACHA20_POLY1305_SHA256',
@@ -63,10 +63,10 @@ module.exports = function (app, db) {
     server = http.createServer(app);
   }
   // Create a new Socket.io server
-  var io = socketio.listen(server);
+  let io = socketio(server);
 
   // Create a Sequelize storage object
-  var sequelizeStore = new SequelizeStore({
+  let sequelizeStore = new SequelizeStore({
     db: db
   });
 
@@ -75,7 +75,7 @@ module.exports = function (app, db) {
     // Use the 'cookie-parser' module to parse the request cookies
     cookieParser(config.sessionSecret)(socket.request, {}, function (err) {
       // Get the session id from the request cookies
-      var sessionId = socket.request.signedCookies ? socket.request.signedCookies[config.sessionKey] : undefined;
+      let sessionId = socket.request.signedCookies ? socket.request.signedCookies[config.sessionKey] : undefined;
 
       if (!sessionId) return next(new Error('sessionId was not found in socket.request'), false);
 

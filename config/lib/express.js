@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var bodyParser = require('body-parser'),
+let bodyParser = require('body-parser'),
   compress = require('compression'),
   config = require('../config'),
   consolidate = require('consolidate'),
@@ -108,7 +108,7 @@ module.exports.initViewEngine = function(app) {
  */
 module.exports.initSession = function(app, db) {
 
-  var sequelizeStore = new SequelizeStore({
+  let sequelizeStore = new SequelizeStore({
     db: db
   });
 
@@ -212,7 +212,7 @@ module.exports.initErrorRoutes = function(app) {
  */
 module.exports.configureSocketIO = function(app, db) {
   // Load the Socket.io configuration
-  var server = require('./socket.io')(app, db);
+  let server = require('./socket.io')(app, db);
 
   // Return server object
   return server;
@@ -223,7 +223,7 @@ module.exports.configureSocketIO = function(app, db) {
  */
 module.exports.init = function(db) {
   // Initialize express app
-  var app = express();
+  let app = express();
 
   // Initialize local variables
   this.initLocalVariables(app);

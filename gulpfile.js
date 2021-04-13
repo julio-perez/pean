@@ -293,33 +293,49 @@ gulp.task('build', gulp.series('templatecache','env:dev', 'lint', 'uglify', 'css
 }));
 
 // Run the project tests
-gulp.task('test', function (done) {
-  runSequence('env:test', 'nodemon', 'lint', 'mocha', 'karma', 'protractor', done);
-});
+gulp.task('test',
+  gulp.series('env:test', 'nodemon', 'lint', 'mocha', 'karma', 'protractor', function (done) {
+    done();
+}));
 
-gulp.task('test:server', function (done) {
-  runSequence('env:test', 'nodemon', 'lint', 'mocha', done);
-});
+gulp.task('test:server',
+  gulp.series('env:test', 'nodemon', 'lint', 'mocha', function (done) {
+    done();
+}));
 
 // Watch all server files for changes & run server tests (test:server) task on changes
 // optional arguments: 
 //    --onlyChanged - optional argument for specifying that only the tests in a changed Server Test file will be run
 // example usage: gulp test:server:watch --onlyChanged
-gulp.task('test:server:watch', function (done) {
-  runSequence('test:server', 'watch', done);
-});
+gulp.task('test:server:watch',
+  gulp.series('test:server', 'watch',
+    function(done) {
+      done();
+    }
+  )
+);
 
-gulp.task('test:client', function (done) {
-  runSequence('env:test', 'lint', 'karma', done);
-});
+gulp.task('test:client',
+  gulp.series('env:test', 'lint', 'karma',
+    function(done) {
+      done();
+    }
+  )
+);
 
-gulp.task('test:e2e', function (done) {
-  runSequence('env:test', 'nodemon', 'lint', 'protractor', done);
-});
+gulp.task('test:e2e',
+  gulp.series('env:test', 'nodemon', 'lint', 'protractor',
+    function(done) {
+      done();
+    }
+  )
+);
 
 // Run the project in development mode
-gulp.task('default', gulp.series('env:dev', 'lint', 'nodemon', 'watch', function (done) {
-  done();
+gulp.task('default',
+  gulp.series('env:dev', 'lint', 'nodemon', 'watch',
+    function (done) {
+      done();
 }));
 
 gulp.task('debug', gulp.series('env:dev', 'lint', 'nodemon', 'watch', function (done) {

@@ -5,7 +5,7 @@
  */
 module.exports = function(sequelize, DataTypes) {
 
-  var Article = sequelize.define('article', {
+  let Article = sequelize.define('article', {
     article_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

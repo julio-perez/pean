@@ -1,13 +1,12 @@
 'use strict';
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   chalk = require('chalk'),
   config = require('../config'),
-  crypto = require('crypto'),
   db = require('./sequelize');
 
 // global seed options object
-var data = {};
+let data = {};
 
 /**
  * Remove user
@@ -91,10 +90,10 @@ function reportSuccess(password) {
  */
 function seedRoles(roles) {
   return new Promise(function(resolve, reject) {
-    var rolesArray = [];
+    let rolesArray = [];
 
     _.forEach(roles, function(value) {
-      var role = {
+      let role = {
         'name': value
       };
       rolesArray.push(role);
@@ -183,15 +182,17 @@ module.exports.setup = function setup() {
  */
 module.exports.start = function start() {
 
-  var adminRoles = [],
-    userRoles = [];
+  let adminRoles = [],
+    userRoles = [],
+    adminAccount,
+    userAccount;
 
   // Initialize the default seed options
-  data = _.clone(config.seed.data, true);
+  data = _.clone(config.seed.data);
 
   // Check for provided options
   if (_.has(data, 'user')) {
-    var userAccount = db.user.build({
+    userAccount = db.user.build({
       username: data.user.username,
       provider: data.user.provider,
       email: data.user.email,
@@ -206,7 +207,7 @@ module.exports.start = function start() {
   }
 
   if (_.has(data, 'admin')) {
-    var adminAccount = db.user.build({
+    adminAccount = db.user.build({
       username: data.admin.username,
       provider: data.admin.provider,
       email: data.admin.email,

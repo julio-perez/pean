@@ -8,7 +8,7 @@
   ArticlesController.$inject = ['$http', '$scope', '$state', 'articleResolve', 'Authentication'];
 
   function ArticlesController($http, $scope, $state, article, Authentication) {
-    var vm = this;
+    let vm = this;
 
     vm.article = article;
     vm.authentication = Authentication;

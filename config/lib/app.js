@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var config = require('../config'),
+let config = require('../config'),
   chalk = require('chalk'),
   sequelize = require('./sequelize'),
   express = require('./express'),
@@ -18,16 +18,23 @@ module.exports.init = function init(callback) {
     console.log(chalk.bold.red('Warning:\tDB_FORCE is true'));  
   }
 
-  sequelize.sequelize
-    .sync({
-      force: config.db.sync.force
-    })
+  sequelize.sequelize.sync({
+    force: config.db.sync.force
+  })
     .then(function (db) {
-      var app = express.init(db);
+      let app = express.init(db);
 
       // Seed
       if (config.db.sync.force) {
-        seed.setup();
+        seed.setup()
+          .then(
+            function(good) {
+              console.log('seed setup was good');
+            },
+            function(bad) {
+              console.log('seed setup was bad');
+            }
+          );
       }
     
       if (config.seed.init) {
@@ -44,7 +51,7 @@ module.exports.init = function init(callback) {
 
 // Start
 module.exports.start = function start(callback) {
-  var _this = this;
+  let _this = this;
 
   _this.init(function (app, db, config) {
 
@@ -52,18 +59,19 @@ module.exports.start = function start(callback) {
     app.listen(config.port, config.host, function () {
 
       // Logging initialization
-      console.log('--');
+      console.log('-----------------------------');
       console.log(chalk.green(config.app.title));
       console.log(chalk.green('Environment: ' + process.env.NODE_ENV));
-      console.log(chalk.green('Port: ' + config.port));
-      console.log(chalk.green('Database: ' + config.db.options.database));
-      if (process.env.NODE_ENV === 'secure') {
+      console.log(chalk.green('Listening on Port: ' + config.port));
+      if (config.db.options.database)
+        console.log(chalk.green('Database: ' + config.db.options.database));
+      if (process.env.NODE_ENV === 'secure' || (config.secure && config.secure.ssl === true)) {
         console.log(chalk.green('HTTPs: on'));
       }
       console.log(chalk.green('App version: ' + config.peanjs.version));
       if (config.peanjs['peanjs-version']) {
         console.log(chalk.green('PEAN.JS version: ' + config.peanjs['peanjs-version']));
-        console.log('--');
+        console.log('-----------------------------');
       }
       if (callback) callback(app, db, config);
     });

@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
 
-  var userRole = sequelize.define('user_role', {
+  let userRole = sequelize.define('user_role', {
     userUserId: {
       type: DataTypes.INTEGER,
       field: 'user_user_id',
@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
     roleRoleId: 'role_role_id'
   });
 
-  var Role = sequelize.define('role', {
+  let Role = sequelize.define('role', {
     role_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

@@ -1,10 +1,10 @@
 html {
-  height  : 100%;
+  height: 100%;
   overflow: hidden;
   position: relative;
 }
 body {
-  height  : 100%;
+  height: 100%;
   overflow: auto;
   position: relative;
 }
@@ -43,9 +43,8 @@ a:hover .header-profile-image {
   opacity: 1;
 }
 .page-header {
-  margin-top: 6rem !important
+  margin-top: 6rem !important;
 }
-
 [ng\:cloak],
 [ng-cloak],
 [x-ng-cloak],
@@ -61,16 +60,15 @@ a:hover .header-profile-image {
   padding-top: 11px !important;
 }
 .vertical-divider {
-  border-left:1px solid #de1b16;
-  margin-left:5px;
-  margin-right:5px;
-  width:1px;
+  border-left: 1px solid #de1b16;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 1px;
 }
-
-.mt-6, .my-6 {
+.mt-6,
+.my-6 {
   margin-top: 6.5rem !important;
 }
-
 @media (min-width: 768px) {
   .mr-sm-6 {
     margin-right: 8.5rem !important;

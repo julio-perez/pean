@@ -8,7 +8,7 @@
   ArticlesListController.$inject = ['ArticlesService'];
 
   function ArticlesListController(ArticlesService) {
-    var vm = this;
+    let vm = this;
 
     vm.articles = ArticlesService.query();
   }

@@ -1,6 +1,6 @@
 'use strict';
 
-var crypto = require('crypto'),
+let crypto = require('crypto'),
   validator = require('validator'),
   generatePassword = require('generate-password'),
   owasp = require('owasp-password-strength-test');
@@ -11,13 +11,14 @@ var crypto = require('crypto'),
  * @param  {[type]} password [description]
  * @return {[type]}          [description]
  */
-var hashPassword = function(user, password) {
+let hashPassword = function(user, password) {
   if (!password) {
     password = user.dataValues.password;
   }
 
   if (user.dataValues.salt && user.dataValues.password) {
-    return crypto.pbkdf2Sync(password, new Buffer(user.dataValues.salt, 'base64'), 10000, 64, 'sha512').toString('base64');
+    const key = crypto.pbkdf2Sync(password, user.dataValues.salt, 10000, 64, 'sha512'); //.toString('base64');
+    return key.toString('base64');
   } else {
     return password;
   }
@@ -28,8 +29,8 @@ var hashPassword = function(user, password) {
  * @param  {[type]} user [description]
  * @return {[type]}      [description]
  */
-var checkImage = function(user) {
-  var profileImageURLDefault = 'modules/users/client/img/profile/default.png';
+let checkImage = function(user) {
+  let profileImageURLDefault = 'modules/users/client/img/profile/default.png';
 
   if (!user.dataValues.profileImageURL) {
     user.dataValues.profileImageURL = profileImageURLDefault;
@@ -41,11 +42,11 @@ var checkImage = function(user) {
  * @param  {[type]} user [description]
  * @return {[type]}      [description]
  */
-var checkPassword = function(user) {
-  var passwordTest = owasp.test(user.password);
+let checkPassword = function(user) {
+  let passwordTest = owasp.test(user.password);
 
   if (passwordTest.errors.length) {
-    var error = passwordTest.errors.join(' ');
+    let error = passwordTest.errors.join(' ');
     throw new Error(error);
   } else {
     user.dataValues.salt = crypto.randomBytes(16).toString('base64');
@@ -60,8 +61,9 @@ var checkPassword = function(user) {
  * @return {[type]}           [description]
  */
 module.exports = function(sequelize, DataTypes) {
-
-  var userRole = sequelize.define('user_role', {
+  
+  let userRole;
+  userRole = sequelize.define('user_role', {
     userUserId: {
       type: DataTypes.INTEGER,
       field: 'user_user_id',
@@ -95,7 +97,7 @@ module.exports = function(sequelize, DataTypes) {
     roleRoleId: 'role_role_id'
   });
 
-  var User = sequelize.define('user', {
+  let User = sequelize.define('user', {
     user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -132,7 +134,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: {
       allowNull: function () {
-        var isLocal = this.provider === 'local';
+        let isLocal = this.provider === 'local';
         return isLocal;
       },
       type: DataTypes.STRING
@@ -222,8 +224,8 @@ module.exports = function(sequelize, DataTypes) {
   */
   User.findUniqueUsername = function(username, suffix, callback) {
 
-    var _this = this;
-    var possibleUsername = username.toLowerCase() + (suffix || '');
+    let _this = this;
+    let possibleUsername = username.toLowerCase() + (suffix || '');
 
     _this
       .findOne({
@@ -251,8 +253,8 @@ module.exports = function(sequelize, DataTypes) {
   */
   User.generateRandomPassphrase = function() {
     return new Promise(function(resolve, reject) {
-      var password = '';
-      var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
+      let password = '';
+      let repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
 
       // iterate until the we have a valid passphrase.
       // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
