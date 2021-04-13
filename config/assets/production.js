@@ -5,7 +5,7 @@ module.exports = {
     lib: {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
-        'public/lib/font-awesome/css/fontawesome.min.css'
+        'public/lib/font-awesome/css/all.min.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.slim.min.js',
@@ -23,7 +23,8 @@ module.exports = {
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/moment/min/moment.min.js',
         'public/lib/angular-moment/angular-moment.min.js',
-        'public/lib/angular-sanitize/angular-sanitize.min.js'
+        'public/lib/angular-sanitize/angular-sanitize.min.js',
+        'public/lib/font-awesome/js/all.min.js'
       ]
     },
     css: 'public/dist/application.min.css',

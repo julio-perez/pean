@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash'),
+let _ = require('lodash'),
   path = require('path'),
   config = require(path.resolve('./config/config')),
   db = require(path.resolve('./config/lib/sequelize')),
@@ -33,7 +33,7 @@ module.exports = function(app) {
           user
             .getRoles()
             .then(function(roles) {
-              var roleArray = [];
+              let roleArray = [];
 
               _.each(roles, function(role) {
                 roleArray.push(role.dataValues.name);

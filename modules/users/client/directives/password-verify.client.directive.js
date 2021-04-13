@@ -8,9 +8,9 @@ angular.module('users')
         passwordVerify: '='
       },
       link: function(scope, element, attrs, ngModel) {
-        var status = true;
+        let status = true;
         scope.$watch(function() {
-          var combined;
+          let combined;
           if (scope.passwordVerify || ngModel) {
             combined = scope.passwordVerify + '_' + ngModel;
           }
@@ -18,7 +18,7 @@ angular.module('users')
         }, function(value) {
           if (value) {
             ngModel.$validators.passwordVerify = function (password) {
-              var origin = scope.passwordVerify;
+              let origin = scope.passwordVerify;
               return (origin !== password) ? false : true;
             };
           }

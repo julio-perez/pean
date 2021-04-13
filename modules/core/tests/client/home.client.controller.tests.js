@@ -3,7 +3,7 @@
 (function () {
   describe('HomeController', function () {
     //Initialize global variables
-    var scope,
+    let scope,
       HomeController;
 
     // Load the main application module

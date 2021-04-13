@@ -4,7 +4,7 @@
   // Authentication controller Spec
   describe('AuthenticationController', function () {
     // Initialize global variables
-    var AuthenticationController,
+    let AuthenticationController,
       scope,
       $httpBackend,
       $stateParams,

@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Users E2E Tests:', function () {
-  var user1 = {
+  let user1 = {
     firstName: 'test',
     lastName: 'user',
     email: 'test.user@meanjs.com',
@@ -9,7 +9,7 @@ describe('Users E2E Tests:', function () {
     password: 'P@$$w0rd!!'
   };
 
-  var user2 = {
+  let user2 = {
     firstName: 'test',
     lastName: 'user2',
     email: 'test.user2@meanjs.com',
@@ -17,7 +17,7 @@ describe('Users E2E Tests:', function () {
     password: 'P@$$w0rd!!'
   };
 
-  var signout = function () {
+  let signout = function () {
     // Make sure user is signed out first
     browser.get('http://localhost:3001/authentication/signout');
     // Delete all cookies

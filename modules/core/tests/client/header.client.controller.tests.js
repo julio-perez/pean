@@ -3,7 +3,7 @@
 (function () {
   describe('HeaderController', function () {
     //Initialize global variables
-    var scope,
+    let scope,
       HeaderController,
       $state,
       Authentication;
@@ -34,7 +34,7 @@
     });
 
     describe('when toggleCollapsibleMenu', function () {
-      var defaultCollapse;
+      let defaultCollapse;
       beforeEach(function () {
         defaultCollapse = scope.isCollapsed;
         scope.toggleCollapsibleMenu();

@@ -6,7 +6,7 @@
 
   describe('ChatController', function () {
     //Initialize global variables
-    var $scope,
+    let $scope,
       Socket,
       ChatController,
       $timeout,
@@ -60,7 +60,7 @@
       // });
 
       // describe('sendMessage', function () {
-      //   var text = 'hello world!';
+      //   let text = 'hello world!';
       //   beforeEach(function () {
       //     $scope.vm.messageText = text;
       //     $scope.vm.sendMessage();

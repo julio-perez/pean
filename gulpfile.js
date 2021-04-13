@@ -10,7 +10,6 @@ var _ = require('lodash'),
   gulp = require('gulp'),
   babel = require('gulp-babel'),
   gulpLoadPlugins = require('gulp-load-plugins'),
-  runSequence = require('run-sequence'),
   plugins = gulpLoadPlugins({
     rename: {
       'gulp-angular-templatecache': 'templateCache'
@@ -296,12 +295,12 @@ gulp.task('build', gulp.series('templatecache','env:dev', 'lint', 'uglify', 'css
 gulp.task('test',
   gulp.series('env:test', 'nodemon', 'lint', 'mocha', 'karma', 'protractor', function (done) {
     done();
-}));
+  }));
 
 gulp.task('test:server',
   gulp.series('env:test', 'nodemon', 'lint', 'mocha', function (done) {
     done();
-}));
+  }));
 
 // Watch all server files for changes & run server tests (test:server) task on changes
 // optional arguments: 
@@ -336,7 +335,8 @@ gulp.task('default',
   gulp.series('env:dev', 'lint', 'nodemon', 'watch',
     function (done) {
       done();
-}));
+    }
+  ));
 
 gulp.task('debug', gulp.series('env:dev', 'lint', 'nodemon', 'watch', function (done) {
   done();

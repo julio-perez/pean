@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-var path = require('path'),
+let path = require('path'),
   db = require(path.resolve('./config/lib/sequelize')),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
@@ -33,7 +33,7 @@ exports.create = function(req, res) {
 exports.delete = function(req, res) {
   // console.log('* articles.server.controller - delete *');
 
-  var id = req.params.articleId;
+  let id = req.params.articleId;
 
   db.article
     .findOne({
@@ -90,7 +90,7 @@ exports.list = function(req, res) {
 exports.read = function(req, res) {
   // console.log('* articles.server.controller - read *');
 
-  var id = req.params.articleId;
+  let id = req.params.articleId;
 
   db.article.findOne({
     where: {
@@ -114,7 +114,7 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
   // console.log('* articles.server.controller - update *');
 
-  var id = req.params.articleId;
+  let id = req.params.articleId;
 
   db.article
     .findOne({

@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var path = require('path'),
+let path = require('path'),
   _ = require('lodash'),
   async = require('async'),
   config = require(path.resolve('./config/config')),
@@ -13,7 +13,7 @@ var path = require('path'),
   moment = require('moment'),
   nodemailer = require('nodemailer');
 
-var smtpTransport = nodemailer.createTransport(config.mailer.options);
+let smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 /**
  * Forgot for reset password (forgot POST)
@@ -24,7 +24,7 @@ exports.forgot = function(req, res, next) {
     // Generate random token
     function(done) {
       crypto.randomBytes(20, function(err, buffer) {
-        var token = buffer.toString('hex');
+        let token = buffer.toString('hex');
         done(err, token);
       });
     },
@@ -88,7 +88,7 @@ exports.forgot = function(req, res, next) {
 
     // If valid email, send reset email using service
     function(emailHTML, user, done) {
-      var mailOptions = {
+      let mailOptions = {
         to: user.email,
         from: config.mailer.from,
         subject: 'Password Reset',
@@ -153,11 +153,11 @@ exports.validateResetToken = function(req, res) {
  */
 exports.reset = function(req, res, next) {
   // Init Variables
-  var passwordDetails = req.body;
+  let passwordDetails = req.body;
 
   async.waterfall([
     function(done) {
-      var now = moment().toISOString();
+      let now = moment().toISOString();
 
       db.user
         .findOne({
@@ -185,7 +185,7 @@ exports.reset = function(req, res, next) {
                       user.password = undefined;
                       user.salt = undefined;
 
-                      var roleArray = [];
+                      let roleArray = [];
 
                       _.forEach(roles, function(role) {
                         roleArray.push(role.dataValues.name);
@@ -247,7 +247,7 @@ exports.reset = function(req, res, next) {
 
     // If valid email, send reset email using service
     function(emailHTML, user, done) {
-      var mailOptions = {
+      let mailOptions = {
         to: user.email,
         from: config.mailer.from,
         subject: 'Your password has been changed',
@@ -270,7 +270,7 @@ exports.reset = function(req, res, next) {
  */
 exports.changePassword = function(req, res, next) {
   // Init Variables
-  var passwordDetails = req.body,
+  let passwordDetails = req.body,
     message = null;
 
   if (req.user) {

@@ -19,7 +19,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
     let toParams = transition.params('to');
 
     if (toState.data && toState.data.roles && toState.data.roles.length > 0) {
-      var allowed = false;
+      let allowed = false;
       toState.data.roles.forEach(function (role) {
         if ((role === 'guest') || (Authentication.user && Authentication.user.roles !== undefined && Authentication.user.roles.indexOf(role) !== -1)) {
           allowed = true;
@@ -45,7 +45,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
   // Check authentication before changing state
   // $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
   //   if (toState.data && toState.data.roles && toState.data.roles.length > 0) {
-  //     var allowed = false;
+  //     let allowed = false;
   //     toState.data.roles.forEach(function (role) {
   //       if ((role === 'guest') || (Authentication.user && Authentication.user.roles !== undefined && Authentication.user.roles.indexOf(role) !== -1)) {
   //         allowed = true;
@@ -96,7 +96,7 @@ angular.element(document).ready(function () {
       window.history.pushState('', document.title, window.location.pathname);
     } else {
       // Prevent scrolling by storing the page's current scroll offset
-      var scroll = {
+      let scroll = {
         top: document.body.scrollTop,
         left: document.body.scrollLeft
       };

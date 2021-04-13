@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var acl = require('acl');
+let acl = require('acl');
 
 // Using the memory backend
 acl = new acl(new acl.memoryBackend());
@@ -34,7 +34,7 @@ exports.invokeRolesPolicies = function() {
  * Check If Admin Policy Allows
  */
 exports.isAllowed = function(req, res, next) {
-  var roles = (req.user) ? req.user.dataValues.roles : ['guest'];
+  let roles = (req.user) ? req.user.dataValues.roles : ['guest'];
 
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function(err, isAllowed) {

@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var path = require('path'),
+let path = require('path'),
   _ = require('lodash'),
   chalk = require('chalk'),
   db = require(path.resolve('./config/lib/sequelize')),
@@ -11,7 +11,7 @@ var path = require('path'),
 
 chalk.enabled = true;
 
-var Op = db.Sequelize.Op;
+let Op = db.Sequelize.Op;
 /**
  * Read
  * @param  {[type]} req [description]
@@ -21,7 +21,7 @@ var Op = db.Sequelize.Op;
 exports.read = function (req, res) {
   // console.log('* user.server.controller - read *');
 
-  var userId = req.params.userId;
+  let userId = req.params.userId;
   
   db.user
     .findOne({
@@ -55,7 +55,7 @@ exports.read = function (req, res) {
 exports.delete = function(req, res) {
   // console.log('* user.server.controller - delete *');
 
-  var userId = req.params.userId;
+  let userId = req.params.userId;
 
   db.user
     .findOne({
@@ -98,11 +98,11 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   // console.log('* user.server.controller - list *');
 
-  var limit = req.query.limit;
-  var offset = req.query.offset;
-  var search = (req.query.search === undefined) ? '%' : req.query.search;
+  let limit = req.query.limit;
+  let offset = req.query.offset;
+  let search = (req.query.search === undefined) ? '%' : req.query.search;
 
-  var query = '%' + search + '%';
+  let query = '%' + search + '%';
 
   db.user
     .findAndCountAll({
@@ -158,8 +158,8 @@ exports.list = function(req, res) {
 exports.modify = function(req, res) {
   // console.log('* user.server.controller - modify *');
 
-  var userId = req.params.userId;
-  var roles = req.query.roles;
+  let userId = req.params.userId;
+  let roles = req.query.roles;
 
   if (!roles) {
     roles = [];

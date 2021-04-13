@@ -3,7 +3,7 @@
 (function() {
   describe('authInterceptor', function() {
     //Initialize global variables
-    var authInterceptor,
+    let authInterceptor,
       $q,
       $state,
       Authentication,
@@ -40,11 +40,11 @@
 
     describe('Forbidden Interceptor', function() {
       it('should redirect to forbidden route', function () {
-        var response = {
+        let response = {
           status: 403,
           config: {}
         };
-        var promise = authInterceptor.responseError(response);
+        let promise = authInterceptor.responseError(response);
         expect($q.reject).toHaveBeenCalled();
         expect($state.transitionTo).toHaveBeenCalledWith('forbidden');
       });
@@ -52,11 +52,11 @@
 
     describe('Authorization Interceptor', function() {
       it('should redirect to signIn page for unauthorized access', function () {
-        var response = {
+        let response = {
           status: 401,
           config: {}
         };
-        var promise = authInterceptor.responseError(response);
+        let promise = authInterceptor.responseError(response);
         expect($q.reject).toHaveBeenCalled();
         expect(Authentication.user).toBe(null);
         expect($state.transitionTo).toHaveBeenCalledWith('authentication.signin');

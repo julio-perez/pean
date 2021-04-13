@@ -10,15 +10,15 @@ angular.module('core').service('Menus', [
     this.menus = {};
 
     // A private function for rendering decision
-    var shouldRender = function (user) {
+    let shouldRender = function (user) {
       if (!!~this.roles.indexOf('*')) {
         return true;
       } else {
         if(!user) {
           return false;
         }
-        for (var userRoleIndex in user.roles) {
-          for (var roleIndex in this.roles) {
+        for (let userRoleIndex in user.roles) {
+          for (let roleIndex in this.roles) {
             if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
               return true;
             }
@@ -98,7 +98,7 @@ angular.module('core').service('Menus', [
 
       // Add submenu items
       if (options.items) {
-        for (var i in options.items) {
+        for (let i in options.items) {
           this.addSubMenuItem(menuId, options.state, options.items[i]);
         }
       }
@@ -115,7 +115,7 @@ angular.module('core').service('Menus', [
       this.validateMenuExistance(menuId);
 
       // Search for menu item
-      for (var itemIndex in this.menus[menuId].items) {
+      for (let itemIndex in this.menus[menuId].items) {
         if (this.menus[menuId].items[itemIndex].state === parentItemState) {
           // Push new submenu item
           this.menus[menuId].items[itemIndex].items.push({
@@ -138,7 +138,7 @@ angular.module('core').service('Menus', [
       this.validateMenuExistance(menuId);
 
       // Search for menu item to remove
-      for (var itemIndex in this.menus[menuId].items) {
+      for (let itemIndex in this.menus[menuId].items) {
         if (this.menus[menuId].items[itemIndex].state === menuItemState) {
           this.menus[menuId].items.splice(itemIndex, 1);
         }
@@ -154,8 +154,8 @@ angular.module('core').service('Menus', [
       this.validateMenuExistance(menuId);
 
       // Search for menu item to remove
-      for (var itemIndex in this.menus[menuId].items) {
-        for (var subitemIndex in this.menus[menuId].items[itemIndex].items) {
+      for (let itemIndex in this.menus[menuId].items) {
+        for (let subitemIndex in this.menus[menuId].items[itemIndex].items) {
           if (this.menus[menuId].items[itemIndex].items[subitemIndex].state === submenuItemState) {
             this.menus[menuId].items[itemIndex].items.splice(subitemIndex, 1);
           }

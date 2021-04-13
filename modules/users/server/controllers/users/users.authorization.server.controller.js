@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash'),
+let _ = require('lodash'),
   path = require('path'),
   db = require(path.resolve('./config/lib/sequelize'));
 

@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash'),
+let _ = require('lodash'),
   fs = require('fs'),
   path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
@@ -15,7 +15,7 @@ var _ = require('lodash'),
  */
 exports.update = function(req, res) {
   // Init Variables
-  var user = req.user;
+  let user = req.user;
 
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
@@ -31,7 +31,7 @@ exports.update = function(req, res) {
         user
           .getRoles()
           .then(function(roles) {
-            var roleArray = [];
+            let roleArray = [];
 
             _.forEach(roles, function(role) {
               roleArray.push(role.dataValues.name);
@@ -69,9 +69,9 @@ exports.update = function(req, res) {
  * Update profile picture
  */
 exports.changeProfilePicture = function(req, res) {
-  var user = req.user;
-  var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
-  var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
+  let user = req.user;
+  let upload = multer(config.uploads.profileUpload).single('newProfilePicture');
+  let profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
 
   // Filtering to upload only images
   upload.fileFilter = profileUploadFileFilter;

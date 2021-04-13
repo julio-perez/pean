@@ -4,7 +4,7 @@
   // Password Validator Directive Spec
   describe('PasswordValidatorDirective', function() {
     // Initialize global variables
-    var scope,
+    let scope,
       element,
       $compile,
       form;
@@ -31,7 +31,7 @@
       // inject allows you to use AngularJS dependency injection
       // to retrieve and use other services
       inject(function($compile) {
-        var form = $compile(template)(scope);
+        let form = $compile(template)(scope);
         element = form.find('div');
 
         // $digest is necessary to finalize the directive generation

@@ -1,17 +1,17 @@
 'use strict';
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   path = require('path'),
   db = require(path.resolve('./config/lib/sequelize')),
   should = require('should');
 
-var Op = db.Sequelize.Op;
+let Op = db.Sequelize.Op;
 
 /**
  * Globals
  */
-var user1, user2, user3;
-var roleAdmin, roleUser; 
+let user1, user2, user3;
+let roleAdmin, roleUser;
 
 /**
  * Unit tests
@@ -191,11 +191,11 @@ describe('User "model" Tests:', function() {
 
   it('should list users', function(done) {
 
-    var limit = 10;
-    var offset = 0;
-    var search = 'user';
+    let limit = 10;
+    let offset = 0;
+    let search = 'user';
 
-    var query = new RegExp(search, 'i');
+    let query = new RegExp(search, 'i');
 
     db.User
       .find({

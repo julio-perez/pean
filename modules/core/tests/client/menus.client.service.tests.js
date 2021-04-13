@@ -3,7 +3,7 @@
 (function() {
   describe('Menus', function() {
     //Initialize global variables
-    var scope,
+    let scope,
       Menus;
 
     // Load the main application module
@@ -23,7 +23,7 @@
 
     describe('addMenu', function() {
       describe('with no options', function() {
-        var menuId = 'menu1',
+        let menuId = 'menu1',
           menu;
         beforeEach(function() {
           menu = Menus.addMenu(menuId);
@@ -47,7 +47,7 @@
       });
 
       describe('with options', function() {
-        var menu,
+        let menu,
           options = {
             roles: ['a', 'b', 'c'],
             items: ['d', 'e', 'f']
@@ -67,7 +67,7 @@
     });
 
     describe('shouldRender', function() {
-      var menuOptions = {
+      let menuOptions = {
           roles: ['*', 'menurole']
         },
         menu;
@@ -89,7 +89,7 @@
       });
 
       describe('when logged in', function() {
-        var user = {
+        let user = {
           roles: ['1', 'menurole', '2']
         };
         describe('menu with * role', function() {
@@ -128,7 +128,7 @@
 
       describe('when menu does not exist', function() {
         it('should throw no menu error', function() {
-          var target = function() {
+          let target = function() {
             Menus.validateMenuExistance('noMenuId');
           };
           expect(target).toThrowError('Menu does not exist');
@@ -136,7 +136,7 @@
       });
 
       describe('when menu exists', function() {
-        var menuId = 'menuId';
+        let menuId = 'menuId';
         beforeEach(function() {
           Menus.menus[menuId] = {};
         });
@@ -148,7 +148,7 @@
     });
 
     describe('removeMenu', function() {
-      var menu = {
+      let menu = {
         id: 'menuId'
       };
       beforeEach(function() {
@@ -167,7 +167,7 @@
     });
 
     describe('addMenuItem', function() {
-      var menuId = 'menu1',
+      let menuId = 'menu1',
         subMenuItem1 = {
           title: 'sub1'
         },
@@ -269,7 +269,7 @@
     });
 
     describe('removeMenuItem', function() {
-      var menuId = 'menuId',
+      let menuId = 'menuId',
         menuItemState = 'menu.state1',
         menuItemState2 = 'menu.state2',
         menu;
@@ -297,14 +297,14 @@
     });
 
     describe('addSubMenuItem', function() {
-      var subItemOptions = {
+      let subItemOptions = {
         title: 'title',
         state: 'sub.state',
         isPublic: false,
         roles: ['a', 'b'],
         position: 4
       };
-      var menuId = 'menu1',
+      let menuId = 'menu1',
         menuItem1Options = {
           state: 'item1.state',
           items: [],

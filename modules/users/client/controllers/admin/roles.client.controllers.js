@@ -53,7 +53,7 @@ angular.module('users').controller('RolesController', [
      * @returns {boolean}
      */
     $scope.isChecked = function(roleId) {
-      var rolesArray = [];
+      let rolesArray = [];
       _.each(user.roles, function(Role) {
         rolesArray.push(Role.role_id);
       });
@@ -68,7 +68,7 @@ angular.module('users').controller('RolesController', [
      * @param roleId
      */
     $scope.update = function(roleId) {
-      var rolesArray = [];
+      let rolesArray = [];
       _.each(user.roles, function(Role) {
         rolesArray.push(Role.role_id);
       });
@@ -77,11 +77,11 @@ angular.module('users').controller('RolesController', [
         rolesArray.push(roleId);
 
       } else {
-        var index = rolesArray.indexOf(roleId);
+        let index = rolesArray.indexOf(roleId);
         rolesArray.splice(index, 1);
       }
 
-      var params = {
+      let params = {
         roles: rolesArray
       };
 

@@ -6,8 +6,8 @@
 
 angular.module('core')
   .directive('showErrors', ['$timeout', '$interpolate', function ($timeout, $interpolate) {
-    var linkFn = function (scope, el, attrs, formCtrl) {
-      var inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses,
+    let linkFn = function (scope, el, attrs, formCtrl) {
+      let inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses,
         initCheck = false,
         showValidationMessages = false,
         blurred = false;
@@ -22,7 +22,7 @@ angular.module('core')
         throw 'show-errors element has no child input elements with a \'name\' attribute class';
       }
 
-      var reset = function () {
+      let reset = function () {
         return $timeout(function () {
           el.removeClass('has-error');
           el.removeClass('has-success');

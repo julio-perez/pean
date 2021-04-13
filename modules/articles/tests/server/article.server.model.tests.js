@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash'),
+let _ = require('lodash'),
   should = require('should'),
   path = require('path'),
   db = require(path.resolve('./config/lib/sequelize'));
@@ -11,8 +11,8 @@ var _ = require('lodash'),
 /**
  * Globals
  */
-var user, article;
-var roleAdmin, roleUser; 
+let user, article;
+let roleAdmin, roleUser;
 
 /**
  * Unit tests
@@ -148,8 +148,8 @@ describe('Article "model" Tests:', function () {
 
   it('should be able to show the list of articles', function(done) {
 
-    var limit = 10;
-    var offset = 0;
+    let limit = 10;
+    let offset = 0;
 
     db.Article
       .findAll({

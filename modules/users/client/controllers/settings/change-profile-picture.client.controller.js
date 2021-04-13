@@ -15,7 +15,7 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
     $scope.uploader.filters.push({
       name: 'imageFilter',
       fn: function (item, options) {
-        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+        let type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
         return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
       }
     });
@@ -23,7 +23,7 @@ angular.module('users').controller('ChangeProfilePictureController', ['$scope', 
     // Called after the user selected a new picture file
     $scope.uploader.onAfterAddingFile = function (fileItem) {
       if ($window.FileReader) {
-        var fileReader = new FileReader();
+        let fileReader = new FileReader();
         fileReader.readAsDataURL(fileItem._file);
 
         fileReader.onload = function (fileReaderEvent) {

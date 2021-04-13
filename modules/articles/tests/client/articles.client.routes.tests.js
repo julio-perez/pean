@@ -3,7 +3,7 @@
 
   describe('Articles Route Tests', function () {
     // Initialize global variables
-    var $scope,
+    let $scope,
       ArticlesService;
 
     //We can start by loading the main application module
@@ -20,7 +20,7 @@
 
     describe('Route Config', function () {
       describe('Main Route', function () {
-        var mainstate;
+        let mainstate;
         beforeEach(inject(function ($state) {
           mainstate = $state.get('articles');
         }));
@@ -39,7 +39,7 @@
       });
 
       describe('View Route', function () {
-        var viewstate,
+        let viewstate,
           ArticlesController,
           mockArticle;
 
@@ -91,7 +91,7 @@
       });
 
       describe('Create Route', function () {
-        var createstate,
+        let createstate,
           ArticlesController,
           mockArticle;
 
@@ -137,7 +137,7 @@
       });
 
       describe('Edit Route', function () {
-        var editstate,
+        let editstate,
           ArticlesController,
           mockArticle;
 

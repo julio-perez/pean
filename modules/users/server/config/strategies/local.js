@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var path = require('path'),
+let path = require('path'),
   db = require(path.resolve('./config/lib/sequelize')),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy;

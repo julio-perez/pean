@@ -1,7 +1,7 @@
 
 'use strict';
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   path = require('path'),
   config = require(path.resolve('./config/config')),
   db = require(path.resolve('./config/lib/sequelize')),
@@ -13,9 +13,9 @@ var _ = require('lodash'),
 /**
  * Globals
  */
-var agent, app;
-var credentials, data, user, article;
-var roleAdmin, roleUser;
+let agent, app;
+let credentials, data, user, article;
+let roleAdmin, roleUser;
 
 /**
  * Article routes tests
@@ -94,7 +94,7 @@ describe('Article "routes" Tests:', function() {
           done(signinErr);
         }
 
-        var userId = user.id;
+        let userId = user.id;
         article = {
           title: 'Article Title',
           content: 'Article Content',
@@ -119,7 +119,7 @@ describe('Article "routes" Tests:', function() {
                 }
 
                 // Get articles list
-                var articles = articlesGetRes.body;
+                let articles = articlesGetRes.body;
 
                 // Set assertions
                 (articles[0].User.id).should.equal(userId);
@@ -149,7 +149,7 @@ describe('Article "routes" Tests:', function() {
   });
 
   it('should not be able to save an article if not logged in', function(done) {
-    var mockArticle = {
+    let mockArticle = {
       title: 'Article Title',
       content: 'Article Content',
     };
@@ -175,7 +175,7 @@ describe('Article "routes" Tests:', function() {
           return done(signinErr);
         }
 
-        var mockArticle = {
+        let mockArticle = {
           content: 'Article content',
           userId: user.id
         };
@@ -289,7 +289,7 @@ describe('Article "routes" Tests:', function() {
       content: 'Article Content',
       userId: user.id
     };
-    var articleObj = db.Article.build(article);
+    let articleObj = db.Article.build(article);
 
     // Save the article
     articleObj.save()
@@ -315,7 +315,7 @@ describe('Article "routes" Tests:', function() {
     };
 
     // Create new article model instance
-    var articleObj = db.Article.build(article);
+    let articleObj = db.Article.build(article);
     // Save the article
     articleObj.save()
       .then(function() {
@@ -426,7 +426,7 @@ describe('Article "routes" Tests:', function() {
     };
 
     // Create new article model instance
-    var articleObj = db.Article.build(article);
+    let articleObj = db.Article.build(article);
 
     // Save the article
     articleObj.save()
@@ -449,13 +449,13 @@ describe('Article "routes" Tests:', function() {
 
   it('should be able to get a single article that has an orphaned user reference', function(done) {
     // Create orphan user creds
-    var _creds = {
+    let _creds = {
       username: 'orphan',
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
     // Create orphan user
-    var _orphan = db.User.build({
+    let _orphan = db.User.build({
       firstName: 'Full',
       lastName: 'Name',
       displayName: 'Full Name',
@@ -479,7 +479,7 @@ describe('Article "routes" Tests:', function() {
                 }
 
                 // Get the userId
-                var orphanId = orphan.id;
+                let orphanId = orphan.id;
                 article = {
                   title: 'Article title',
                   content: 'Article content',

@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   path = require('path'),
   config = require(path.resolve('./config/config')),
   db = require(path.resolve('./config/lib/sequelize')),
@@ -12,9 +12,9 @@ var _ = require('lodash'),
 /**
  * Globals
  */
-var agent, app;
-var credentials, data, user;
-var roleAdmin, roleUser; 
+let agent, app;
+let credentials, data, user;
+let roleAdmin, roleUser;
 
 /**
  * User routes tests
@@ -338,7 +338,7 @@ describe('User "routes" Tests:', function() {
                   return done(err);
                 }
 
-                var userUpdate = {
+                let userUpdate = {
                   firstName: 'admin_update_first',
                   lastName: 'admin_update_last'
                 };
@@ -639,7 +639,7 @@ describe('User "routes" Tests:', function() {
                     user.resetPasswordToken.should.not.be.empty();
                     should.exist(user.resetPasswordExpires);
 
-                    var invalidToken = 'someTOKEN1234567890';
+                    let invalidToken = 'someTOKEN1234567890';
 
                     agent
                       .get('/api/auth/reset/' + invalidToken)
@@ -990,7 +990,7 @@ describe('User "routes" Tests:', function() {
                   return done(err);
                 }
 
-                var update = {
+                let update = {
                   roles: [1, 2]
                 };
 
@@ -1060,7 +1060,7 @@ describe('User "routes" Tests:', function() {
                   return done(err);
                 }
 
-                var update = {
+                let update = {
                   username: 'register_newdata'
                 };
 
@@ -1130,7 +1130,7 @@ describe('User "routes" Tests:', function() {
                   return done(err);
                 }
 
-                var update = {
+                let update = {
                   email: 'register_newdata_@test.com'
                 };
 

@@ -3,11 +3,11 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport');
+let passport = require('passport');
 
 module.exports = function (app) {
   // User Routes
-  var users = require('../controllers/users.server.controller');
+  let users = require('../controllers/users.server.controller');
 
   // Setting up the users password api
   app.route('/api/auth/forgot').post(users.forgot);

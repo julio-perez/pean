@@ -1,10 +1,10 @@
 'use strict';
 
 // Init the application configuration module for AngularJS application
-var ApplicationConfiguration = (function() {
+let ApplicationConfiguration = (function() {
   // Init module configuration options
-  var applicationModuleName = 'pean';
-  var applicationModuleVendorDependencies = [
+  let applicationModuleName = 'pean';
+  let applicationModuleVendorDependencies = [
     'ngResource',
     'ngAnimate',
     'ngMessages',
@@ -15,7 +15,7 @@ var ApplicationConfiguration = (function() {
   ];
 
   // Add a new vertical module
-  var registerModule = function(moduleName, dependencies) {
+  let registerModule = function(moduleName, dependencies) {
     // Create angular module
     angular.module(moduleName, dependencies || [
       'angularMoment',

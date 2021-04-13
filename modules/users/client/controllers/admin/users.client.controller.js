@@ -30,7 +30,7 @@ angular.module('users').controller('UsersController', [
     if (!$scope.authentication.user) {
       $location.path('/authentication/signin');
     } else {
-      var roles = $scope.authentication.user.roles;
+      let roles = $scope.authentication.user.roles;
 
       if (_.includes(roles, 'admin')) {
         $scope.authenticated = true;
@@ -43,11 +43,11 @@ angular.module('users').controller('UsersController', [
      * Find users
      */
     $scope.find = function() {
-      var limit = $scope.pageSize;
-      var offset = ($scope.currentPage - 1) * $scope.pageSize;
-      var search = $scope.search;
+      let limit = $scope.pageSize;
+      let offset = ($scope.currentPage - 1) * $scope.pageSize;
+      let search = $scope.search;
 
-      var params = {
+      let params = {
         'limit': limit,
         'offset': offset,
         'search': search
@@ -66,8 +66,8 @@ angular.module('users').controller('UsersController', [
           $scope.currentPage = $scope.numberOfPages;
         }
 
-        var beginning = $scope.pageSize * $scope.currentPage - $scope.pageSize;
-        var end = (($scope.pageSize * $scope.currentPage) > $scope.totalItems) ? $scope.totalItems : ($scope.pageSize * $scope.currentPage);
+        let beginning = $scope.pageSize * $scope.currentPage - $scope.pageSize;
+        let end = (($scope.pageSize * $scope.currentPage) > $scope.totalItems) ? $scope.totalItems : ($scope.pageSize * $scope.currentPage);
 
         $scope.pageRange = beginning + ' ~ ' + end;
       });
@@ -83,7 +83,7 @@ angular.module('users').controller('UsersController', [
           url: 'api/users/admin/' + user.user_id,
           method: 'DELETE'
         }).then(function(data) {
-          for (var i in $scope.users) {
+          for (let i in $scope.users) {
             if ($scope.users[i] === user) {
               $scope.users.splice(i, 1);
             }
@@ -188,9 +188,9 @@ angular.module('users').controller('UsersController', [
      * @param size
      */
     $scope.openRolesModal = function(index, size) {
-      var user = $scope.users[index];
+      let user = $scope.users[index];
 
-      var modalInstance = $uibModal.open({
+      let modalInstance = $uibModal.open({
         templateUrl: 'roles-modal.html',
         controller: 'RolesController',
         size: size,

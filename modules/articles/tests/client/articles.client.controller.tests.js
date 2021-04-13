@@ -3,7 +3,7 @@
 
   describe('Articles Controller Tests', function () {
     // Initialize global variables
-    var ArticlesController,
+    let ArticlesController,
       $scope,
       $httpBackend,
       $state,
@@ -70,7 +70,7 @@
     }));
 
     describe('vm.save() as create', function () {
-      var sampleArticlePostData;
+      let sampleArticlePostData;
 
       beforeEach(function () {
         // Create a sample article object
@@ -98,7 +98,7 @@
       }));
 
       it('should set $scope.vm.error if error', function () {
-        var errorMessage = 'this is an error message';
+        let errorMessage = 'this is an error message';
         $httpBackend.expectPOST('api/articles', sampleArticlePostData).respond(400, {
           message: errorMessage
         });
@@ -131,7 +131,7 @@
       }));
 
       it('should set $scope.vm.error if error', inject(function (ArticlesService) {
-        var errorMessage = 'error';
+        let errorMessage = 'error';
         $httpBackend.expectPUT(/api\/articles\/1234$/).respond(400, {
           message: errorMessage
         });

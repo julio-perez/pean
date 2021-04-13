@@ -43,7 +43,7 @@ sequelize = new Sequelize(config.db.options.database, config.db.options.username
 // Import models
 config.files.server.models.forEach(function(modelPath) {
   let model;
-  let _modelPath = "";
+  let _modelPath = '';
   _modelPath = modelPath;
   model = sequelize.import(path.resolve(_modelPath));
   db[model.name] = model;
