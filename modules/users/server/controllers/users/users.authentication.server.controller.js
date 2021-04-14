@@ -50,7 +50,6 @@ exports.signup = function(req, res) {
     })
     .then(function(user) {
 
-      console.log(user);
       // Find role
       db.role
         .findOne({
@@ -133,8 +132,6 @@ exports.signin = function(req, res, next) {
               delete user._previousDataValues['password'];
               delete user._previousDataValues['resetPasswordToken'];
 
-              console.log(user.dataValues);
-              console.log(user._previousDataValues);
               return res.json(user);
             })
             .catch(function(err) {
